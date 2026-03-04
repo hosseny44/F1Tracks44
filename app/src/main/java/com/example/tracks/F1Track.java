@@ -19,7 +19,7 @@ public class F1Track implements Parcelable {
     private String weatherConditions;
     private String elevation;
     private String drivingDifficulty;
-    private String phone;
+    private String location;
 
     // 🔹 Firebase يحتاج constructor فاضي
     public F1Track() {}
@@ -29,7 +29,7 @@ public class F1Track implements Parcelable {
                    String circuitType, String trackDirection,
                    String trackWidth, String tyreWear,
                    String weatherConditions, String elevation,
-                   String drivingDifficulty, String phone) {
+                   String drivingDifficulty, String location) {
 
         this.trackName = trackName;
         this.raceDistance = raceDistance;
@@ -43,7 +43,7 @@ public class F1Track implements Parcelable {
         this.weatherConditions = weatherConditions;
         this.elevation = elevation;
         this.drivingDifficulty = drivingDifficulty;
-        this.phone = phone;
+        this.location = location;
     }
 
     // 🔹 Parcelable constructor
@@ -60,7 +60,7 @@ public class F1Track implements Parcelable {
         weatherConditions = in.readString();
         elevation = in.readString();
         drivingDifficulty = in.readString();
-        phone = in.readString();
+        location = in.readString();
     }
 
     @Override
@@ -77,7 +77,7 @@ public class F1Track implements Parcelable {
         dest.writeString(weatherConditions);
         dest.writeString(elevation);
         dest.writeString(drivingDifficulty);
-        dest.writeString(phone);
+        dest.writeString(location);
     }
 
     @Override
@@ -97,17 +97,44 @@ public class F1Track implements Parcelable {
         }
     };
 
+    // getters & setters
+
     public String getTrackName() { return trackName; }
+    public void setTrackName(String trackName) { this.trackName = trackName; }
+
     public String getRaceDistance() { return raceDistance; }
+    public void setRaceDistance(String raceDistance) { this.raceDistance = raceDistance; }
+
     public String getNumberOfLaps() { return numberOfLaps; }
+    public void setNumberOfLaps(String numberOfLaps) { this.numberOfLaps = numberOfLaps; }
+
     public String getFirstGrandPrix() { return firstGrandPrix; }
+    public void setFirstGrandPrix(String firstGrandPrix) { this.firstGrandPrix = firstGrandPrix; }
+
     public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
     public String getCircuitType() { return circuitType; }
+    public void setCircuitType(String circuitType) { this.circuitType = circuitType; }
+
     public String getTrackDirection() { return trackDirection; }
+    public void setTrackDirection(String trackDirection) { this.trackDirection = trackDirection; }
+
     public String getTrackWidth() { return trackWidth; }
+    public void setTrackWidth(String trackWidth) { this.trackWidth = trackWidth; }
+
     public String getTyreWear() { return tyreWear; }
+    public void setTyreWear(String tyreWear) { this.tyreWear = tyreWear; }
+
     public String getWeatherConditions() { return weatherConditions; }
+    public void setWeatherConditions(String weatherConditions) { this.weatherConditions = weatherConditions; }
+
     public String getElevation() { return elevation; }
+    public void setElevation(String elevation) { this.elevation = elevation; }
+
     public String getDrivingDifficulty() { return drivingDifficulty; }
-    public String getPhone() { return phone; }
+    public void setDrivingDifficulty(String drivingDifficulty) { this.drivingDifficulty = drivingDifficulty; }
+
+    public String getLocation1() { return location; }
+    public void setLocation1(String location) { this.location = location; }
 }

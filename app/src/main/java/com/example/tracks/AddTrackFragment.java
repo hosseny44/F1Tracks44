@@ -32,7 +32,8 @@ public class AddTrackFragment extends Fragment {
 
     private EditText editTrackName, editRaceDistance, editNumberOfLaps, editFirstGrandPrix,
     editCircuitType ,editTrackDirection  , editTrackWidth, editTyreWear,
-            editWeatherConditions, editelevation , editDrivingDifficulty ,editPhone;
+            editWeatherConditions, editelevation , editDrivingDifficulty ,editLocation
+            ;
 
 
     private ImageView imgTrack;
@@ -65,7 +66,7 @@ public class AddTrackFragment extends Fragment {
         editWeatherConditions = view.findViewById(R.id.editWeatherConditions);
         editelevation = view.findViewById(R.id.editelevation);
         editDrivingDifficulty = view.findViewById(R.id.editDrivingDifficulty);
-        editPhone= view.findViewById(R.id.editPhone);
+        editLocation= view.findViewById(R.id.editLocation);
         btnAddTrack = view.findViewById(R.id.btnAddTrack);
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -106,10 +107,13 @@ public class AddTrackFragment extends Fragment {
         String weatherConditions = editWeatherConditions.getText().toString().trim();
         String elevation = editelevation.getText().toString().trim();
         String drivingDifficulty = editDrivingDifficulty.getText().toString().trim();
-        String Phone = editPhone.getText().toString().trim();
+        String Location = editLocation.getText().toString().trim();
 
         if (trackName.isEmpty() || raceDistance.isEmpty()
-                || numberOfLaps.isEmpty() || firstGrandPrix.isEmpty()) {
+                || numberOfLaps.isEmpty() || firstGrandPrix.isEmpty() || circuitType.isEmpty()
+                || trackDirection.isEmpty() || trackWidth.isEmpty() || tyreWear.isEmpty() || weatherConditions.isEmpty()
+                || elevation.isEmpty() || drivingDifficulty.isEmpty() || Location.isEmpty())
+        {
 
             Toast.makeText(getActivity(),
                     "Please fill all fields",
@@ -149,7 +153,7 @@ public class AddTrackFragment extends Fragment {
                                     weatherConditions,
                                     elevation,
                                     drivingDifficulty,
-                                    Phone
+                                    Location
                             ) {
 
                                 @Override

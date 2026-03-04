@@ -29,7 +29,7 @@ public class TrackDetailsFragment extends Fragment {
     private TextView tvTrackName, tvRaceDistance, tvNumberOfLaps, tvFirstGrandPrix,
             tvCircuitType, tvTrackDirection, tvTrackWidth,
             tvTyreWear, tvWeatherConditions, tvElevation,
-            tvDrivingDifficulty, tvPhone;
+            tvDrivingDifficulty, tvLocation;
 
     private ImageView ivTrackPhoto;
     private F1Track myTrack;
@@ -71,7 +71,7 @@ public class TrackDetailsFragment extends Fragment {
         tvWeatherConditions = getView().findViewById(R.id.tvWeatherConditions);
         tvElevation = getView().findViewById(R.id.tvElevation);
         tvDrivingDifficulty = getView().findViewById(R.id.tvDrivingDifficulty);
-        tvPhone = getView().findViewById(R.id.tvPhone);
+        tvLocation = getView().findViewById(R.id.tvLocation);
         ivTrackPhoto = getView().findViewById(R.id.ivTrackPhoto);
 
         Bundle args = getArguments();
@@ -92,7 +92,7 @@ public class TrackDetailsFragment extends Fragment {
         tvWeatherConditions.setText("Weather Conditions: " + myTrack.getWeatherConditions());
         tvElevation.setText("Elevation Above The Sea: " + myTrack.getElevation() + " m");
         tvDrivingDifficulty.setText("Driving Difficulty: " + myTrack.getDrivingDifficulty());
-        tvPhone.setText("Phone: " + myTrack.getPhone());
+        tvLocation.setText("Location: " + myTrack.getLocation1());
 
         Picasso.get()
                 .load(myTrack.getImageUrl())
@@ -105,7 +105,7 @@ public class TrackDetailsFragment extends Fragment {
     }
 
     private boolean isPhoneAvailable() {
-        return myTrack != null && myTrack.getPhone() != null && !myTrack.getPhone().isEmpty();
+        return myTrack != null && myTrack.getLocation1() != null && !myTrack.getLocation1().isEmpty();
     }
 
     // =================== SMS ===================
@@ -130,7 +130,7 @@ public class TrackDetailsFragment extends Fragment {
 
         try {
             SmsManager.getDefault().sendTextMessage(
-                    myTrack.getPhone(), null, message, null, null);
+                    myTrack.getLocation1(), null, message, null, null);
             Toast.makeText(getActivity(), "SMS sent", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(getActivity(), "SMS failed", Toast.LENGTH_SHORT).show();
@@ -143,7 +143,7 @@ public class TrackDetailsFragment extends Fragment {
             return;
         }
 
-        String url = "https://wa.me/972" + myTrack.getPhone()
+        String url = "https://wa.me/972" + myTrack.getLocation1()
                 + "?text=" + Uri.encode("I am interested in your " + myTrack.getTrackName() + " track");
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -183,7 +183,7 @@ public class TrackDetailsFragment extends Fragment {
 
     private void startCall() {
         Intent intent = new Intent(Intent.ACTION_CALL,
-                Uri.parse("tel:" + myTrack.getPhone()));
+                Uri.parse("tel:" + myTrack.getLocation1()));
         startActivity(intent);
     }
 

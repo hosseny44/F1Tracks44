@@ -17,7 +17,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
-public class TrackListFragment extends Fragment {
+public class TrackListMap extends Fragment {
 
     private RecyclerView recyclerView;
     private MyAdapter adapter;
@@ -25,7 +25,7 @@ public class TrackListFragment extends Fragment {
     private FirebaseFirestore db;
     private SearchView srchView;
 
-    public TrackListFragment() { }
+    public TrackListMap() { }
 
     @Nullable
     @Override
@@ -43,7 +43,7 @@ public class TrackListFragment extends Fragment {
         trackList = new ArrayList<>();
         filteredList = new ArrayList<>();
 
-        adapter = new MyAdapter(getActivity(), trackList , "list") ;
+        adapter = new MyAdapter(getActivity(), trackList , "map") ;
         recyclerView.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
@@ -85,7 +85,7 @@ public class TrackListFragment extends Fragment {
         filteredList.clear();
 
         if (query.trim().isEmpty()) {
-            adapter = new MyAdapter(getActivity(), trackList, "list");
+            adapter = new MyAdapter(getActivity(), trackList, "map");
             recyclerView.setAdapter(adapter);
             return;
         }
@@ -100,7 +100,7 @@ public class TrackListFragment extends Fragment {
             }
         }
 
-        adapter = new MyAdapter(getActivity(), filteredList , "list");
+        adapter = new MyAdapter(getActivity(), filteredList , "map");
         recyclerView.setAdapter(adapter);
     }
 }

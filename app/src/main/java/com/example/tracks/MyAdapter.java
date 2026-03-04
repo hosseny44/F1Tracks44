@@ -1,14 +1,15 @@
 package com.example.tracks;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -17,31 +18,32 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    private Context context;
-    private ArrayList<TrackItem> trackList;
+    Context context;
+    ArrayList<F1Track> trackList;
+    private String pageType;
     private OnItemClickListener itemClickListener;
-    private OnFavoriteClickListener favoriteClickListener;
 
-    public MyAdapter(Context context, ArrayList<TrackItem> trackList) {
+    public MyAdapter(Context context, ArrayList<F1Track> trackList, String pageType) {
         this.context = context;
         this.trackList = trackList;
+        this.pageType = pageType;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType){
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder,int position){
-        TrackItem track = trackList.get(position);
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        F1Track track = trackList.get(position);
 
-        holder.trackName.setText(track.getTrackName());
-        holder.raceDistance.setText("Distance: " + track.getRaceDistance());
-        holder.numberOfLaps.setText("Laps: " + track.getNumberOfLaps());
-        holder.firstGrandPrix.setText("First GP: " + track.getFirstGrandPrix());
+        holder.trackName.setText("Track Name: " + track.getTrackName());
+        holder.raceDistance.setText("Race Distance: " + track.getRaceDistance() + " Km");
+        holder.numberOfLaps.setText("Number Of Laps: " + track.getNumberOfLaps());
+        holder.firstGrandPrix.setText("First Grand Prix: " + track.getFirstGrandPrix());
 
         if (track.getImageUrl() == null || track.getImageUrl().isEmpty()) {
             Picasso.get().load(R.drawable.ic_launcher_foreground).into(holder.trackImage);
@@ -49,24 +51,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             Picasso.get().load(track.getImageUrl()).into(holder.trackImage);
         }
 
-        holder.favoriteIcon.setImageDrawable(
-                ContextCompat.getDrawable(context,
-                        track.isFavorite() ? R.drawable.ic_star_filled : R.drawable.ic_star));
-
         holder.itemView.setOnClickListener(v -> {
-            if (itemClickListener != null) {
-                itemClickListener.onItemClick(position);
-            }
-        });
-
-        holder.favoriteIcon.setOnClickListener(v -> {
-            track.setFavorite(!track.isFavorite());
-            holder.favoriteIcon.setImageDrawable(
-                    ContextCompat.getDrawable(context,
-                            track.isFavorite() ? R.drawable.ic_star_filled : R.drawable.ic_star));
-
-            if (!track.isFavorite() && favoriteClickListener != null) {
-                favoriteClickListener.onFavoriteClick(track);
+            if(pageType.equals("list")) {
+                Bundle args = new Bundle();
+                args.putParcelable("track", track);
+                TrackDetailsFragment td = new TrackDetailsFragment();
+                td.setArguments(args);
+                FragmentTransaction ft = ((MainActivity) context)
+                        .getSupportFragmentManager()
+                        .beginTransaction();
+                ft.replace(R.id.frameLayout, td);
+                ft.addToBackStack(null);
+                ft.commit();
+            } else if(pageType.equals("map")) {
+                Bundle args = new Bundle();
+                args.putString("address", track.getLocation1());
+                TrackMapFragment mapFragment = new TrackMapFragment();
+                mapFragment.setArguments(args);
+                FragmentTransaction ft = ((MainActivity) context)
+                        .getSupportFragmentManager()
+                        .beginTransaction();
+                ft.replace(R.id.frameLayout, mapFragment);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
     }
@@ -78,7 +85,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView trackName, raceDistance, numberOfLaps, firstGrandPrix;
-        ImageView trackImage, favoriteIcon;
+        ImageView trackImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,7 +94,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             numberOfLaps = itemView.findViewById(R.id.tvNumberOfLaps);
             firstGrandPrix = itemView.findViewById(R.id.tvFirstGrandPrix);
             trackImage = itemView.findViewById(R.id.ivStadiumImage);
-            favoriteIcon = itemView.findViewById(R.id.ivFavoriteIcon);
         }
     }
 
@@ -97,13 +103,5 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
-    }
-
-    public interface OnFavoriteClickListener {
-        void onFavoriteClick(TrackItem track);
-    }
-
-    public void setOnFavoriteClickListener(OnFavoriteClickListener listener) {
-        this.favoriteClickListener = listener;
     }
 }

@@ -163,13 +163,13 @@
             android:padding="12dp"
             android:layout_marginTop="12dp"/>
 
-        <!-- حقل الهاتف -->
+        <!-- تعديل Location ليكون نص -->
         <EditText
-            android:id="@+id/editPhone"
+            android:id="@+id/editLocation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Phone Number"
-            android:inputType="phone"
+            android:hint="Location"
+            android:inputType="text"
             android:background="@drawable/track_edittext_bg"
             android:textColor="#FFFFFF"
             android:textColorHint="#AAAAAA"

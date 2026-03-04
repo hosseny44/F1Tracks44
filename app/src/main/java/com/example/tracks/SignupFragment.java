@@ -142,7 +142,7 @@ public class SignupFragment extends Fragment {
 
         User user = new User(firstName, lastName, phone, photoUrl , "", email);
 
-        fbs.getFirestore().collection("users").document(uid)
+        fbs.getFire().collection("users").document(uid)
                 .set(user)
                 .addOnSuccessListener(aVoid -> {
                     fbs.setCurrentUser(user);

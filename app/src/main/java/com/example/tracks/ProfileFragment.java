@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
         User current = fbs.getCurrentUser();
         if (current != null) {
             tvName.setText(current.getFirstName());
-            tvEmail.setText(current.getEmail());
+            tvEmail.setText(current.getAddress());
 
             if (current.getPhoto() != null && !current.getPhoto().isEmpty()) {
                 Picasso.get().load(current.getPhoto()).into(Profile);
@@ -71,12 +71,9 @@ public class ProfileFragment extends Fragment {
         ft.commit();
         ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
     }
-
     private void gotoFavorite() {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frameLayout, new FavFragment());
+        FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new FavFragment());
         ft.commit();
-        ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
     }
 }

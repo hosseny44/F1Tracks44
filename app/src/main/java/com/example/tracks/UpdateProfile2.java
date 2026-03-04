@@ -26,7 +26,7 @@ import java.util.UUID;
 
 public class UpdateProfile2 extends Fragment {
 
-    private EditText etFirstName, etLastName, etPhone, etPassword, etEmail;
+    private EditText etFirstName, etLastName, etPhone, etUsername, etEmail;
     private ImageView ivUser;
     private Button btnUpdate;
     private FirebaseServices fbs;
@@ -51,7 +51,7 @@ public class UpdateProfile2 extends Fragment {
         etFirstName = getView().findViewById(R.id.etFirstnameUserDetailsEdit);
         etLastName = getView().findViewById(R.id.etLastnameUserDetailsEdit);
         etPhone = getView().findViewById(R.id.etPhoneUserDetailsEdit);
-        etPassword = getView().findViewById(R.id.etPassword);
+        etUsername = getView().findViewById(R.id.etUsername);
         etEmail = getView().findViewById(R.id.etEmail);
         ivUser = getView().findViewById(R.id.ivUserUserDetailsEdit);
         btnUpdate = getView().findViewById(R.id.btnUpdateUserDetails);
@@ -69,8 +69,8 @@ public class UpdateProfile2 extends Fragment {
             etFirstName.setText(current.getFirstName());
             etLastName.setText(current.getLastName());
             etPhone.setText(current.getPhone());
-            etPassword.setText(current.getPassword());
-            etEmail.setText(current.getEmail());
+            etEmail.setText(current.getAddress());
+            etUsername.setText(current.getUsername());
 
             if (current.getPhoto() != null && !current.getPhoto().isEmpty()) {
                 Glide.with(this).load(current.getPhoto()).into(ivUser);
@@ -83,11 +83,11 @@ public class UpdateProfile2 extends Fragment {
         String firstname = etFirstName.getText().toString().trim();
         String lastname = etLastName.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
+        String username = etUsername.getText().toString().trim();
         String selectedImage = fbs.getSelectedImageURL() != null ? fbs.getSelectedImageURL().toString() : "";
 
-        if (firstname.isEmpty() || lastname.isEmpty() || phone.isEmpty() || password.isEmpty() || email.isEmpty()) {
+        if (firstname.isEmpty() || lastname.isEmpty() || phone.isEmpty() || email.isEmpty()) {
             Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -96,9 +96,9 @@ public class UpdateProfile2 extends Fragment {
         if (current != null) {
             boolean isChanged = !current.getFirstName().equals(firstname) ||
                     !current.getLastName().equals(lastname) ||
+                    !current.getUsername().equals(username) ||
                     !current.getPhone().equals(phone) ||
-                    !current.getPassword().equals(password) ||
-                    !current.getEmail().equals(email) ||
+                    !current.getAddress().equals(email) ||
                     !current.getPhoto().equals(selectedImage);
 
             if (!isChanged) {
@@ -106,10 +106,10 @@ public class UpdateProfile2 extends Fragment {
                 return;
             }
 
-            User updatedUser = new User(firstname, lastname, phone, selectedImage, password, email);
+            User updatedUser = new User(firstname, lastname, phone, selectedImage, username ,email);
 
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            fbs.getFirestore().collection("users").document(uid)
+            fbs.getFire().collection("users").document(uid)
                     .set(updatedUser)
                     .addOnSuccessListener(aVoid -> {
                         fbs.setCurrentUser(updatedUser);
@@ -160,4 +160,5 @@ public class UpdateProfile2 extends Fragment {
     private void setNavigationBarVisible() {
         ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
     }
+
 }

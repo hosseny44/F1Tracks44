@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,23 +21,30 @@ import java.util.ArrayList;
 public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<F1Track> trackList;
+    ArrayList<TrackItem> trackList;
+    private OnItemClickListener itemClickListener;
+    private OnFavoriteClickListener favoriteClickListener;
+    private FirebaseServices fbs;
+    private String pageType;
 
-    public TrackListAdapter(Context context, ArrayList<F1Track> trackList) {
+    public TrackListAdapter(Context context, ArrayList<TrackItem> trackList) {
         this.context = context;
         this.trackList = trackList;
+        this.fbs = FirebaseServices.getInstance();
+        this.pageType = pageType;
+
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        F1Track track = trackList.get(position);
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position){
+        TrackItem track = trackList.get(position);
 
         holder.trackName.setText("Track Name: " + track.getTrackName());
         holder.raceDistance.setText("Race Distance: " + track.getRaceDistance() + " Km");
@@ -49,32 +57,61 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.MyVi
             Picasso.get().load(track.getImageUrl()).into(holder.trackImage);
         }
 
+        // حالة المفضلة
+        if (fbs.getCurrentUser() != null && fbs.getCurrentUser().getFavorites().contains(track.getTrackName())) {
+            holder.ivFavorite.setImageResource(R.drawable.ic_fav2_foreground);
+        } else {
+            holder.ivFavorite.setImageResource(R.drawable.ic_fav1_foreground);
+        }
+
+        // الضغط على العنصر لفتح التفاصيل
         holder.itemView.setOnClickListener(v -> {
-            Bundle args = new Bundle();
-            args.putParcelable("track", track);
+            if (itemClickListener != null)
+            {
+                itemClickListener.onItemClick(position);
+            }
+            if(pageType.equals("list"))
+            {
+                Bundle args = new Bundle();
+                args.putParcelable("track", track);
+                TrackDetailsFragment td = new TrackDetailsFragment();
+                td.setArguments(args);
+                FragmentTransaction ft = ((MainActivity) context)
+                        .getSupportFragmentManager()
+                        .beginTransaction();
+                ft.replace(R.id.frameLayout, td);
+                ft.addToBackStack(null);
+                ft.commit();
 
-            // creat Fragment
-            TrackDetailsFragment td = new TrackDetailsFragment();
-            td.setArguments(args);
+            }
+        });
 
-            // Replace Fragment
-            FragmentTransaction ft = ((MainActivity) context)
-                    .getSupportFragmentManager()
-                    .beginTransaction();
-            ft.replace(R.id.frameLayout, td);
-            ft.addToBackStack(null); // ضروري عشان زر العودة يشتغل
-            ft.commit();
+        // الضغط على أيقونة المفضلة
+        holder.ivFavorite.setOnClickListener(v -> {
+            if (fbs.getCurrentUser() != null) {
+                if (fbs.getCurrentUser().getFavorites().contains(track.getTrackName())) {
+                    fbs.getCurrentUser().getFavorites().remove(track.getTrackName());
+                    holder.ivFavorite.setImageResource(R.drawable.ic_fav1_foreground);
+                    Toast.makeText(context, "Removed from favorites", Toast.LENGTH_SHORT).show();
+                } else {
+                    fbs.getCurrentUser().getFavorites().add(track.getTrackName());
+                    holder.ivFavorite.setImageResource(R.drawable.ic_fav2_foreground);
+                    Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show();
+                }
+                fbs.setUserChangeFlag(true); // لتحديث المفضلة لاحقاً عند onPause
+                if (favoriteClickListener != null) favoriteClickListener.onFavoriteClick(track);
+            }
         });
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount(){
         return trackList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView trackName, raceDistance, numberOfLaps, firstGrandPrix;
-        ImageView trackImage;
+        ImageView trackImage, ivFavorite;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +120,28 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.MyVi
             numberOfLaps = itemView.findViewById(R.id.tvNumberOfLaps);
             firstGrandPrix = itemView.findViewById(R.id.tvFirstGrandPrix);
             trackImage = itemView.findViewById(R.id.ivStadiumImage);
+            ivFavorite = itemView.findViewById(R.id.ivFavorite);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public interface OnFavoriteClickListener {
+        void onFavoriteClick(TrackItem track);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
+    }
+
+    public void setOnFavoriteClickListener(OnFavoriteClickListener listener) {
+        this.favoriteClickListener = listener;
+    }
+
+    public void updateList(ArrayList<TrackItem> newList) {
+        this.trackList = newList;
+        notifyDataSetChanged();
     }
 }

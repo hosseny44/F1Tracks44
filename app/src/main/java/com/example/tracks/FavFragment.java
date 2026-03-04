@@ -15,25 +15,25 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class FavFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private MyAdapter myAdapter;
+    private TrackListAdapter myAdapter;
     private SearchView srchView;
-    private ArrayList<TrackItem> tracks, filteredList;
+
+    private ArrayList<TrackItem> tracks;
+    private ArrayList<TrackItem> filteredList;
+
     private FirebaseServices fbs;
 
-    public FavFragment() { }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_fav, container, false);
-    }
+    public FavFragment() {}
 
     @Override
     public void onStart() {
@@ -42,40 +42,40 @@ public class FavFragment extends Fragment {
     }
 
     private void init() {
-        View view = getView();
-        if (view == null) return;
 
-        recyclerView = view.findViewById(R.id.rvTracklist);
-        srchView = view.findViewById(R.id.srchTrack);
+        recyclerView = getView().findViewById(R.id.rvTracklist);
+        srchView = getView().findViewById(R.id.srchViewfavoriteFragment);
+
         fbs = FirebaseServices.getInstance();
 
         tracks = new ArrayList<>();
         filteredList = new ArrayList<>();
 
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        myAdapter = new MyAdapter(getActivity(), tracks);
+        myAdapter = new TrackListAdapter(getActivity(), tracks );
         recyclerView.setAdapter(myAdapter);
 
-        // النقر على الكارد
         myAdapter.setOnItemClickListener(position -> {
-            TrackItem selected = tracks.get(position);
-            Toast.makeText(getActivity(), "Clicked: " + selected.getTrackName(), Toast.LENGTH_SHORT).show();
-            openTrackDetails(selected);
+
+            Bundle args = new Bundle();
+            args.putParcelable("track", tracks.get(position));
+
+            TrackDetailsFragment cd = new TrackDetailsFragment();
+            cd.setArguments(args);
+
+            FragmentTransaction ft = getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction();
+
+            ft.replace(R.id.frameLayout, cd);
+            ft.addToBackStack(null);
+            ft.commit();
+
         });
 
-        // النقر على النجمة
-        myAdapter.setOnFavoriteClickListener(track -> {
-            if(!track.isFavorite()){
-                removeTrackFromList(track); // إزالة العنصر من قائمة المفضلة مباشرة
-            }
-        });
-
-        loadTracksFromFirebase();
-
-        // SearchView listener
         srchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 applyFilter(query);
@@ -88,103 +88,89 @@ public class FavFragment extends Fragment {
                 return true;
             }
         });
+
+        loadFavoriteTracks();
     }
 
-    private void loadTracksFromFirebase() {
-        fbs.getFirestore().collection("tracks")
+    private void loadFavoriteTracks() {
+
+        fbs.getFire().collection("tracks2")
                 .get()
                 .addOnCompleteListener(task -> {
+
                     if (task.isSuccessful()) {
+
                         tracks.clear();
+
                         User u = fbs.getCurrentUser();
 
                         for (QueryDocumentSnapshot document : task.getResult()) {
+
                             TrackItem track = document.toObject(TrackItem.class);
-                            if (u != null && u.getFavorites().contains(track.getTrackName())) {
-                                track.setFavorite(true); // وضع حالة المفضلة
+
+                            if (u != null && u.getFavorites().contains(track.getId())) {
                                 tracks.add(track);
                             }
                         }
 
                         myAdapter.notifyDataSetChanged();
 
-                        if (tracks.isEmpty()) {
-                            showNoDataDialogue();
-                        }
-
                     } else {
+
                         Log.e("FavFragment", "Error getting documents", task.getException());
                     }
                 });
     }
 
     private void applyFilter(String query) {
-        filteredList = new ArrayList<>();
+
+        filteredList.clear();
 
         if (query.trim().isEmpty()) {
-            myAdapter = new MyAdapter(getActivity(), tracks);
-            recyclerView.setAdapter(myAdapter);
-            myAdapter.setOnItemClickListener(position -> openTrackDetails(tracks.get(position)));
-            myAdapter.setOnFavoriteClickListener(track -> {
-                if(!track.isFavorite()){
-                    removeTrackFromList(track);
-                }
-            });
+            myAdapter.updateList(tracks);
             return;
         }
 
         for (TrackItem track : tracks) {
+
             if (track.getTrackName().toLowerCase().contains(query.toLowerCase()) ||
                     track.getRaceDistance().toLowerCase().contains(query.toLowerCase()) ||
                     track.getNumberOfLaps().toLowerCase().contains(query.toLowerCase()) ||
                     track.getFirstGrandPrix().toLowerCase().contains(query.toLowerCase())) {
+
                 filteredList.add(track);
             }
         }
 
         if (filteredList.isEmpty()) {
             showNoDataDialogue();
-            return;
         }
 
-        myAdapter = new MyAdapter(getActivity(), filteredList);
-        recyclerView.setAdapter(myAdapter);
-        myAdapter.setOnItemClickListener(position -> openTrackDetails(filteredList.get(position)));
-        myAdapter.setOnFavoriteClickListener(track -> {
-            if(!track.isFavorite()){
-                removeTrackFromList(track);
-            }
-        });
-    }
-
-    private void openTrackDetails(TrackItem track) {
-        Bundle args = new Bundle();
-        args.putParcelable("track", track);
-        TrackDetailsFragment cd = new TrackDetailsFragment();
-        cd.setArguments(args);
-
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, cd);
-        ft.addToBackStack(null);
-        ft.commit();
+        myAdapter.updateList(filteredList);
     }
 
     private void showNoDataDialogue() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("No Results");
         builder.setMessage("Try again!");
         builder.show();
     }
 
-    // إزالة العنصر من قائمة المفضلة
-    public void removeTrackFromList(TrackItem track){
-        tracks.remove(track);
-        myAdapter.notifyDataSetChanged();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        return inflater.inflate(R.layout.fragment_fav, container, false);
     }
 
-    public void gotoAddTrackFragment() {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, new AddTrackFragment());
-        ft.commit();
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        User u = ((MainActivity)getActivity()).getUserDataObject();
+
+        if (u != null)
+            fbs.updateUser(u);
     }
 }

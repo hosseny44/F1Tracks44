@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class TrackItem implements Parcelable {
+
     private String id;
     private String trackName;
     private String raceDistance;
@@ -19,18 +20,20 @@ public class TrackItem implements Parcelable {
     private String weatherConditions;
     private String elevation;
     private String drivingDifficulty;
-    private String phone;
 
-    // الجديد: حالة المفضلة
+    private String location;
+
+    // حالة المفضلة
     private boolean isFavorite = false;
 
-    public TrackItem() { }
+    public TrackItem() {}
 
     public TrackItem(String id, String trackName, String raceDistance, String numberOfLaps,
                      String firstGrandPrix, String imageUrl, String circuitType,
                      String trackDirection, String trackWidth, String tyreWear,
-                     String weatherConditions, String elevation, String drivingDifficulty,
-                     String phone) {
+                     String weatherConditions, String elevation,
+                     String drivingDifficulty, String location) {
+
         this.id = id;
         this.trackName = trackName;
         this.raceDistance = raceDistance;
@@ -44,7 +47,7 @@ public class TrackItem implements Parcelable {
         this.weatherConditions = weatherConditions;
         this.elevation = elevation;
         this.drivingDifficulty = drivingDifficulty;
-        this.phone = phone;
+        this.location = location;
         this.isFavorite = false;
     }
 
@@ -62,7 +65,7 @@ public class TrackItem implements Parcelable {
         weatherConditions = in.readString();
         elevation = in.readString();
         drivingDifficulty = in.readString();
-        phone = in.readString();
+        location = in.readString();
         isFavorite = in.readByte() != 0;
     }
 
@@ -93,7 +96,7 @@ public class TrackItem implements Parcelable {
         dest.writeString(weatherConditions);
         dest.writeString(elevation);
         dest.writeString(drivingDifficulty);
-        dest.writeString(phone);
+        dest.writeString(location);
         dest.writeByte((byte) (isFavorite ? 1 : 0));
     }
 
@@ -101,6 +104,8 @@ public class TrackItem implements Parcelable {
     public int describeContents() {
         return 0;
     }
+
+    // getters & setters
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -141,8 +146,8 @@ public class TrackItem implements Parcelable {
     public String getDrivingDifficulty() { return drivingDifficulty; }
     public void setDrivingDifficulty(String drivingDifficulty) { this.drivingDifficulty = drivingDifficulty; }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 
     public boolean isFavorite() { return isFavorite; }
     public void setFavorite(boolean favorite) { this.isFavorite = favorite; }
@@ -155,6 +160,7 @@ public class TrackItem implements Parcelable {
                 ", numberOfLaps='" + numberOfLaps + '\'' +
                 ", firstGrandPrix='" + firstGrandPrix + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", location='" + location + '\'' +
                 ", isFavorite=" + isFavorite +
                 '}';
     }

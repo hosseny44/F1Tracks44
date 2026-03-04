@@ -61,14 +61,6 @@
                     android:textColor="#AAAAAA"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tvCountry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Country:"
-                    android:textColor="#AAAAAA"
-                    android:textSize="16sp" />
-
             </LinearLayout>
 
             <!-- Image + Favorite overlay -->
@@ -85,7 +77,7 @@
                     android:src="@drawable/ic_launcher_foreground" />
 
                 <ImageView
-                    android:id="@+id/ivFavoriteIcon"
+                    android:id="@+id/ivFavorite"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_gravity="top|end"
@@ -93,7 +85,7 @@
                     android:clickable="true"
                     android:contentDescription="Favorite Star"
                     android:focusable="true"
-                    android:src="@drawable/ic_star"
+                    android:src="@drawable/ic_fav1_foreground"
                     tools:ignore="TouchTargetSizeCheck" />
 
             </FrameLayout>

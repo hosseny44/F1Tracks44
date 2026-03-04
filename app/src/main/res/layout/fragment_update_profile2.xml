@@ -74,12 +74,12 @@
 
         <!-- Password -->
         <EditText
-            android:id="@+id/etPassword"
+            android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/login_edittext_bg"
-            android:hint="Password"
+            android:hint="UserName"
             android:inputType="textPassword"
             android:padding="12dp"
             android:textColor="#FFFFFF"
