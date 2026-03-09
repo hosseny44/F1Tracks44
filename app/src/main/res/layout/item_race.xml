@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/trackName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Track Name"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/raceDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Race Date and Time"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"/>
+
+    <Button
+        android:id="@+id/reminderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Reminder"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

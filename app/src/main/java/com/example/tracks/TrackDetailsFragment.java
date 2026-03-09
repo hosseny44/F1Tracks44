@@ -1,11 +1,12 @@
 package com.example.tracks;
 
 import android.Manifest;
-import android.content.Intent;
+import android.content.ContentValues;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.SmsManager;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.squareup.picasso.Picasso;
 
-public class TrackDetailsFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
-    private static final int PERMISSION_SEND_SMS = 1;
-    private static final int REQUEST_CALL_PERMISSION = 2;
+public class TrackDetailsFragment extends Fragment {
 
     private TextView tvTrackName, tvRaceDistance, tvNumberOfLaps, tvFirstGrandPrix,
             tvCircuitType, tvTrackDirection, tvTrackWidth,
@@ -34,7 +35,7 @@ public class TrackDetailsFragment extends Fragment {
     private ImageView ivTrackPhoto;
     private F1Track myTrack;
 
-    private Button  btnSMS;
+    private Button btnReminder;
     private boolean isEnlarged = false;
 
     @Override
@@ -48,6 +49,7 @@ public class TrackDetailsFragment extends Fragment {
         super.onStart();
         init();
 
+        // تكبير وتصغير الصورة عند الضغط
         ivTrackPhoto.setOnClickListener(v -> {
             if (isEnlarged) {
                 ivTrackPhoto.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -59,7 +61,7 @@ public class TrackDetailsFragment extends Fragment {
     }
 
     private void init() {
-
+        // ربط العناصر من XML
         tvTrackName = getView().findViewById(R.id.tvTrackName);
         tvRaceDistance = getView().findViewById(R.id.tvRaceDistance);
         tvNumberOfLaps = getView().findViewById(R.id.tvNumberOfLaps);
@@ -73,7 +75,9 @@ public class TrackDetailsFragment extends Fragment {
         tvDrivingDifficulty = getView().findViewById(R.id.tvDrivingDifficulty);
         tvLocation = getView().findViewById(R.id.tvLocation);
         ivTrackPhoto = getView().findViewById(R.id.ivTrackPhoto);
+        btnReminder = getView().findViewById(R.id.btnR);
 
+        // استلام بيانات الحلبة من Bundle
         Bundle args = getArguments();
         if (args == null || args.getParcelable("track") == null) {
             Toast.makeText(getActivity(), "Track data not found", Toast.LENGTH_SHORT).show();
@@ -81,6 +85,8 @@ public class TrackDetailsFragment extends Fragment {
         }
 
         myTrack = args.getParcelable("track");
+
+        // عرض البيانات
         tvTrackName.setText("Track Name: " + myTrack.getTrackName());
         tvRaceDistance.setText("Race Distance: " + myTrack.getRaceDistance() + " Km");
         tvNumberOfLaps.setText("Number Of Laps: " + myTrack.getNumberOfLaps());
@@ -94,114 +100,111 @@ public class TrackDetailsFragment extends Fragment {
         tvDrivingDifficulty.setText("Driving Difficulty: " + myTrack.getDrivingDifficulty());
         tvLocation.setText("Location: " + myTrack.getLocation1());
 
+        // تحميل الصورة
         Picasso.get()
                 .load(myTrack.getImageUrl())
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(ivTrackPhoto);
 
-        btnSMS = getView().findViewById(R.id.btnSMS);
-        btnSMS.setOnClickListener(v -> checkAndSendSMS());
+        // طلب إذن الكتابة على التقويم إذا لم يكن موجود
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR}, 100);
+        }
+
+        // ربط زر التذكير
+        btnReminder.setOnClickListener(v -> addTrackRaceReminder());
     }
 
-    private boolean isPhoneAvailable() {
-        return myTrack != null && myTrack.getLocation1() != null && !myTrack.getLocation1().isEmpty();
+    // قائمة كل السباقات للموسم
+    private ArrayList<Race> getAllRacesForSeason() {
+        ArrayList<Race> races = new ArrayList<>();
+        races.add(new Race("Bahrain GB ", "Bahrain International Circuit", 2026,5,12,18,0));
+        races.add(new Race("Saudi Arabia GP", "Albert Park Grand Prix Circuit", 2026,5,17,17,0));
+        races.add(new Race(" Japan GP ", "Suzuka Circuit", 2026,3,29,14,0));
+        // أضف بقية السباقات هنا
+        return races;
     }
 
-    // =================== SMS ===================
-    private void checkAndSendSMS() {
-        if (!isPhoneAvailable()) {
-            Toast.makeText(getActivity(), "Phone number not available", Toast.LENGTH_SHORT).show();
+    // البحث عن السباق الخاص بالحلبة فقط
+    private void addTrackRaceReminder() {
+        ArrayList<Race> allRaces = getAllRacesForSeason();
+        Race raceForThisTrack = null;
+
+        for(Race r : allRaces){
+            if(r.trackName.equalsIgnoreCase(myTrack.getTrackName())){
+                raceForThisTrack = r;
+                break;
+            }
+        }
+
+        if(raceForThisTrack != null){
+            addRaceReminderToCalendar(raceForThisTrack);
+        } else {
+            Toast.makeText(getActivity(), "Race for this track not found!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // اختيار تقويم صالح على الجهاز
+    private long getPrimaryCalendarId() {
+        long calendarId = -1;
+        Cursor cursor = getActivity().getContentResolver().query(
+                CalendarContract.Calendars.CONTENT_URI,
+                new String[]{CalendarContract.Calendars._ID, CalendarContract.Calendars.CALENDAR_DISPLAY_NAME},
+                CalendarContract.Calendars.VISIBLE + " = 1 AND " + CalendarContract.Calendars.IS_PRIMARY + " = 1",
+                null,
+                CalendarContract.Calendars._ID + " ASC");
+
+        if (cursor != null && cursor.moveToFirst()) {
+            calendarId = cursor.getLong(0);
+            cursor.close();
+        } else if (cursor != null) {
+            cursor.close();
+            Cursor c2 = getActivity().getContentResolver().query(
+                    CalendarContract.Calendars.CONTENT_URI,
+                    new String[]{CalendarContract.Calendars._ID},
+                    CalendarContract.Calendars.VISIBLE + " = 1",
+                    null,
+                    CalendarContract.Calendars._ID + " ASC");
+            if (c2 != null && c2.moveToFirst()) {
+                calendarId = c2.getLong(0);
+                c2.close();
+            }
+        }
+        return calendarId;
+    }
+
+    // إضافة السباق للتقويم مع تذكير قبل ساعة
+    private void addRaceReminderToCalendar(Race race) {
+        long calendarId = getPrimaryCalendarId();
+        if(calendarId == -1){
+            Toast.makeText(getActivity(), "No calendar found on device!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+        Calendar beginTime = Calendar.getInstance();
+        beginTime.set(race.year, race.month-1, race.day, race.hour, race.minute);
 
-            ActivityCompat.requestPermissions(requireActivity(),
-                    new String[]{Manifest.permission.SEND_SMS}, PERMISSION_SEND_SMS);
+        ContentValues values = new ContentValues();
+        values.put(CalendarContract.Events.DTSTART, beginTime.getTimeInMillis());
+        values.put(CalendarContract.Events.DTEND, beginTime.getTimeInMillis() + 60*60*1000); // ساعة
+        values.put(CalendarContract.Events.TITLE, "Race: " + race.raceName);
+        values.put(CalendarContract.Events.DESCRIPTION, "Don't forget to watch the race!");
+        values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
+        values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
+
+        Uri uri = getActivity().getContentResolver().insert(CalendarContract.Events.CONTENT_URI, values);
+        if(uri != null){
+            long eventID = Long.parseLong(uri.getLastPathSegment());
+            ContentValues reminder = new ContentValues();
+            reminder.put(CalendarContract.Reminders.MINUTES, 60);
+            reminder.put(CalendarContract.Reminders.EVENT_ID, eventID);
+            reminder.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+            getActivity().getContentResolver().insert(CalendarContract.Reminders.CONTENT_URI, reminder);
+            Toast.makeText(getActivity(), "Reminder added for " + race.raceName, Toast.LENGTH_SHORT).show();
         } else {
-            sendSMS();
-        }
-    }
-
-    private void sendSMS() {
-        String message = "I am interested in your " + myTrack.getTrackName() + " track";
-
-        try {
-            SmsManager.getDefault().sendTextMessage(
-                    myTrack.getLocation1(), null, message, null, null);
-            Toast.makeText(getActivity(), "SMS sent", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(getActivity(), "SMS failed", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void sendWhatsAppMessage() {
-        if (!isPhoneAvailable()) {
-            Toast.makeText(getActivity(), "Phone number not available", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String url = "https://wa.me/972" + myTrack.getLocation1()
-                + "?text=" + Uri.encode("I am interested in your " + myTrack.getTrackName() + " track");
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-
-        if (isAppInstalled("com.whatsapp")) {
-            startActivity(intent);
-        } else {
-            Toast.makeText(getActivity(), "WhatsApp not installed", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean isAppInstalled(String packageName) {
-        try {
-            requireActivity().getPackageManager().getPackageInfo(packageName, 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
-    // =================== Call ===================
-    private void makePhoneCall() {
-        if (!isPhoneAvailable()) {
-            Toast.makeText(getActivity(), "Phone number not available", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(requireActivity(),
-                    new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
-        } else {
-            startCall();
-        }
-    }
-
-    private void startCall() {
-        Intent intent = new Intent(Intent.ACTION_CALL,
-                Uri.parse("tel:" + myTrack.getLocation1()));
-        startActivity(intent);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-
-        if (requestCode == PERMISSION_SEND_SMS &&
-                grantResults.length > 0 &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            sendSMS();
-        }
-
-        if (requestCode == REQUEST_CALL_PERMISSION &&
-                grantResults.length > 0 &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            startCall();
+            Toast.makeText(getActivity(), "Failed to add reminder", Toast.LENGTH_SHORT).show();
         }
     }
 }

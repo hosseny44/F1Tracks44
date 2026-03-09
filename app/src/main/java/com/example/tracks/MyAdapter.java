@@ -39,7 +39,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.CountryName.setText(  track.getCountryName());
         holder.exp.setText(track.getEXP());
 
-        // تحميل صورة المسار222
         if (track.getImageUrl() == null || track.getImageUrl().isEmpty()) {
             Glide.with(context)
                     .load(R.drawable.ic_launcher_foreground)
