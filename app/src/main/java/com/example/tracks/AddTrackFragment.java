@@ -163,6 +163,7 @@ public class AddTrackFragment extends Fragment {
                                                     String countryImageUrl = countryUri.toString();
 
                                                     F1Track track = new F1Track(
+                                                            "",
                                                             trackName,
                                                             raceDistance,
                                                             numberOfLaps,

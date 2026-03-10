@@ -11,5 +11,5 @@
     <!-- حدود الزر/الإدخال -->
     <stroke
         android:width="2dp"
-        android:color="#FFCC00" />
+        android:color="#BF092F" />
 </shape>

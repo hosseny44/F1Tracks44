@@ -20,7 +20,7 @@
         android:title="Sign Out" />
 
     <item
-        android:id="@+id/action_trackmap"
-        android:icon="@drawable/ic_map_foreground"
-        android:title="Map" />
+        android:id="@+id/action_more"
+        android:icon="@drawable/ic_more"
+        android:title="More" />
 </menu>

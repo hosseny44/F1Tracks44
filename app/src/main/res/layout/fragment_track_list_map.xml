@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
+    android:background="@android:color/transparent"
+
     tools:context=".TrackListMap">
 
     <!-- Header مع صورة المستخدم و SearchView -->

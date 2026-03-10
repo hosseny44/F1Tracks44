@@ -25,6 +25,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDYjmjQ5z1P_IlVQTZuhAq3WWuMGP8OP-M"/>
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
 

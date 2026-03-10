@@ -1,30 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1C1C"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:padding="24dp">
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/tvSignupTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="#FFD700"
+            android:layout_marginBottom="32dp"
             android:shadowColor="#000000"
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="4"
-            android:layout_marginBottom="32dp"/>
+            android:text="Sign Up"
+            android:textColor="#132440"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etEmailSignup"
@@ -102,8 +101,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="24dp"
+            android:backgroundTint="#132440"
             android:text="SIGN UP"
-            android:backgroundTint="#C8FFEB3B"
             android:textColor="#000000"
             android:textStyle="bold" />
 

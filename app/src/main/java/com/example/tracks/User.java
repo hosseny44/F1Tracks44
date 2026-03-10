@@ -5,6 +5,7 @@ import android.os.Parcel;
 import java.util.ArrayList;
 
 public class User {
+
     private String firstName;
     private String lastName;
     private String username;
@@ -14,16 +15,21 @@ public class User {
     private String password;
     private ArrayList<String> favorites;
 
+    // Firebase يستخدم هذا constructor
     public User() {
+        favorites = new ArrayList<>();
     }
 
-    public User(String firstName, String lastName, String username, String phone, String address, String photo) {
+    public User(String firstName, String lastName, String username,
+                String phone, String address, String photo) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.phone = phone;
         this.address = address;
         this.photo = photo;
+
         this.favorites = new ArrayList<>();
     }
 
@@ -61,7 +67,8 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    public String setPassword() {
+
+    public String getPassword() {
         return password;
     }
 
@@ -86,11 +93,12 @@ public class User {
     }
 
     public ArrayList<String> getFavorites() {
+        if (favorites == null) favorites = new ArrayList<>();
         return favorites;
     }
 
-    public void setFavorites(ArrayList<String> favourits) {
-        this.favorites = favourits;
+    public void setFavorites(ArrayList<String> favorites) {
+        this.favorites = favorites;
     }
 
     @Override

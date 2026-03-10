@@ -46,7 +46,6 @@ public class ProfileFragment extends Fragment {
         tvEmail = getView().findViewById(R.id.tvEmail);
         btnFav = getView().findViewById(R.id.btnfav1);
         btnSet = getView().findViewById(R.id.btsSet);
-
         btnFav.setOnClickListener(v -> gotoFavorite());
         btnSet.setOnClickListener(v -> gotoUpdateProfileFragment());
 

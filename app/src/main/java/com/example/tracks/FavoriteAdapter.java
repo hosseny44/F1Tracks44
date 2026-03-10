@@ -2,6 +2,7 @@ package com.example.tracks;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,28 +11,35 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyViewHolder> {
 
     private Context context;
     private ArrayList<F1Track> trackList;
     private String pageType;
     private FirebaseServices fbs;
+    private OnItemClickListener listener;
 
-    public MyAdapter(Context context, ArrayList<F1Track> trackList, String pageType) {
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public FavoriteAdapter(Context context, ArrayList<F1Track> trackList, String pageType) {
         this.context = context;
         this.trackList = trackList;
         this.pageType = pageType;
         this.fbs = FirebaseServices.getInstance();
     }
 
-
     @Override
     public MyViewHolder onCreateViewHolder(android.view.ViewGroup parent, int viewType) {
         android.view.View v = android.view.LayoutInflater.from(context).inflate(R.layout.item, parent, false);
-        return new MyViewHolder(v);
+        return new MyViewHolder(v, listener);
     }
 
     @Override
@@ -41,39 +49,32 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.CountryName.setText(track.getCountryName());
         holder.exp.setText(track.getEXP());
 
-        // تحميل صورة التراك
         Glide.with(context)
-                .load(track.getImageUrl() == null || track.getImageUrl().isEmpty() ?
-                        R.drawable.ic_launcher_foreground : track.getImageUrl())
+                .load(track.getImageUrl() != null ? track.getImageUrl() : R.drawable.ic_launcher_foreground)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.trackImage);
 
-        // تحميل صورة الدولة
         Glide.with(context)
-                .load(track.getImgCountry() == null || track.getImgCountry().isEmpty() ?
-                        R.drawable.ic_launcher_foreground : track.getImgCountry())
+                .load(track.getImgCountry() != null ? track.getImgCountry() : R.drawable.ic_launcher_foreground)
                 .circleCrop()
-                .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.countryImage);
 
-        // --- Favorite logic ---
         holder.ivFavorite.setImageResource(track.isFavorite() ? R.drawable.ic_fav2_foreground : R.drawable.ic_fav1_foreground);
 
         holder.ivFavorite.setOnClickListener(v -> {
             User u = fbs.getCurrentUser();
             if (u == null) return;
 
-            boolean isFav = u.getFavorites().contains(track.getId());
+            boolean isFav = u.getFavorites().contains(track.getCountryName());
 
             if (isFav) {
-                u.getFavorites().remove(track.getId());
+                u.getFavorites().remove(track.getCountryName());
                 track.setFavorite(false);
             } else {
-                u.getFavorites().add(track.getId());
+                u.getFavorites().add(track.getCountryName());
                 track.setFavorite(true);
             }
 
-            // تحديث الذاكرة و Firebase فورًا
             fbs.setCurrentUser(u);
             fbs.updateUser(u);
 
@@ -81,30 +82,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             Toast.makeText(context, track.isFavorite() ? "Added to favorites" : "Removed from favorites",
                     Toast.LENGTH_SHORT).show();
-        });
-
-        // الضغط على الصف نفسه
-        holder.itemView.setOnClickListener(v -> {
-            if (pageType.equals("list")) {
-                Bundle args = new Bundle();
-                args.putParcelable("track", track);
-                TrackDetailsFragment td = new TrackDetailsFragment();
-                td.setArguments(args);
-                FragmentTransaction ft = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout, td);
-                ft.addToBackStack(null);
-                ft.commit();
-
-            } else if (pageType.equals("map")) {
-                Bundle args = new Bundle();
-                args.putString("address", track.getLocation1());
-                TrackMapFragment mapFragment = new TrackMapFragment();
-                mapFragment.setArguments(args);
-                FragmentTransaction ft = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout, mapFragment);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
         });
     }
 
@@ -115,7 +92,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public void updateList(ArrayList<F1Track> newList) {
         trackList.clear();
-        if(newList != null) trackList.addAll(newList);
+        if (newList != null) trackList.addAll(newList);
         notifyDataSetChanged();
     }
 
@@ -123,7 +100,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         TextView CountryName, exp;
         ImageView trackImage, countryImage, ivFavorite;
 
-        public MyViewHolder(android.view.View itemView) {
+        public MyViewHolder(android.view.View itemView, OnItemClickListener listener) {
             super(itemView);
             CountryName = itemView.findViewById(R.id.tvCountryName);
             exp = itemView.findViewById(R.id.tvEXP);
@@ -131,8 +108,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             countryImage = itemView.findViewById(R.id.ivCountry);
             ivFavorite = itemView.findViewById(R.id.ivFavorite);
 
-
+            itemView.setOnClickListener(v -> {
+                if (listener != null) listener.onItemClick(getAdapterPosition());
+            });
         }
     }
-
 }

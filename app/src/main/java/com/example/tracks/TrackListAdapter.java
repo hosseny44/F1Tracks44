@@ -30,7 +30,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.MyVi
         this.context = context;
         this.trackList = trackList;
         this.fbs = FirebaseServices.getInstance();
-        this.pageType = pageType;
 
     }
 
@@ -45,7 +44,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position){
         TrackItem track = trackList.get(position);
 
-        holder.CountryName.setText( track.getTrackName());
+        holder.CountryName.setText( track.getCountryName());
         holder.EXP.setText(  track.getRaceDistance());
 
         if (track.getImageUrl() == null || track.getImageUrl().isEmpty()) {
@@ -59,12 +58,42 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.MyVi
             Picasso.get().load(track.getImgCountry()).into(holder.ivCountry);
         }
 
-        // حالة المفضلة
-        if (fbs.getCurrentUser() != null && fbs.getCurrentUser().getFavorites().contains(track.getTrackName())) {
+        if (fbs.getCurrentUser() != null && fbs.getCurrentUser().getFavorites().contains(track.getId())) {
             holder.ivFavorite.setImageResource(R.drawable.ic_fav2_foreground);
         } else {
             holder.ivFavorite.setImageResource(R.drawable.ic_fav1_foreground);
         }
+        // الضغط على أيقونة المفضلة
+        holder.ivFavorite.setOnClickListener(v -> {
+            v.setClickable(true); // تأكد أن الأيقونة قابلة للضغط
+            v.setFocusable(true); // تجعلها قابلة للتفاعل
+            if (fbs.getCurrentUser() != null) {
+                boolean isFav = fbs.getCurrentUser().getFavorites().contains(track.getId());
+
+                if (isFav) {
+                    fbs.getCurrentUser().getFavorites().remove(track.getId());
+                    holder.ivFavorite.setImageResource(R.drawable.ic_fav1_foreground);
+                    Toast.makeText(context, "Removed from favorites", Toast.LENGTH_SHORT).show();
+                } else {
+                    fbs.getCurrentUser().getFavorites().add(track.getId());
+                    holder.ivFavorite.setImageResource(R.drawable.ic_fav2_foreground);
+                    Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show();
+                }
+
+                // تحديث Firebase مباشرة
+                fbs.updateUser(fbs.getCurrentUser());
+
+                // إعلام FavFragment للتحديث
+                if (favoriteClickListener != null) {
+                    favoriteClickListener.onFavoriteClick(track);
+                }
+            }
+        });
+        holder.itemView.setOnClickListener(v -> {
+            if (itemClickListener != null)
+                itemClickListener.onItemClick(position);
+        });
+
 
         holder.itemView.setOnClickListener(v -> {
             if (itemClickListener != null)
@@ -87,24 +116,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.MyVi
             }
         });
 
-        holder.ivFavorite.setOnClickListener(v -> {
-            if (fbs.getCurrentUser() != null) {
-                if (fbs.getCurrentUser().getFavorites().contains(track.getTrackName())) {
-                    fbs.getCurrentUser().getFavorites().remove(track.getTrackName());
-                    holder.ivFavorite.setImageResource(R.drawable.ic_fav1_foreground);
-                    Toast.makeText(context, "Removed from favorites", Toast.LENGTH_SHORT).show();
-                } else {
-                    fbs.getCurrentUser().getFavorites().add(track.getTrackName());
-                    holder.ivFavorite.setImageResource(R.drawable.ic_fav2_foreground);
-                    Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show();
-                }
-
-                // بدلاً من Flag، حدث المستخدم مباشرة في Firebase
-                fbs.updateUser(fbs.getCurrentUser());
-
-                if (favoriteClickListener != null) favoriteClickListener.onFavoriteClick(track);
-            }
-        });
     }
 
     @Override
