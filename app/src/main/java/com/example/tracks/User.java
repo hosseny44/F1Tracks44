@@ -96,11 +96,10 @@ public class User {
         if (favorites == null) favorites = new ArrayList<>();
         return favorites;
     }
-
+//55555
     public void setFavorites(ArrayList<String> favorites) {
         this.favorites = favorites;
     }
-
     @Override
     public String toString() {
         return "User{" +
