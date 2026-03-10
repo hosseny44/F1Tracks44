@@ -90,13 +90,11 @@ public class User {
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    }
-
+    }///8989
     public ArrayList<String> getFavorites() {
         if (favorites == null) favorites = new ArrayList<>();
         return favorites;
-    }
-//55555
+    }//
     public void setFavorites(ArrayList<String> favorites) {
         this.favorites = favorites;
     }
@@ -111,4 +109,5 @@ public class User {
                 ", Photo='" + photo + '\'' +
                 '}';
     }
+    //88
 }
