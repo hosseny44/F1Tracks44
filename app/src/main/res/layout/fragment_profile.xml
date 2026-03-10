@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:fillViewport="true"
+    android:background="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
             android:text="📞 Support"
             android:textStyle="bold"
             android:textColor="#000000"
-            android:background="@drawable/btn_race_yellow" />
+            android:background="@drawable/btn_race_red2" />
 
         <!-- Settings Button -->
         <androidx.appcompat.widget.AppCompatButton

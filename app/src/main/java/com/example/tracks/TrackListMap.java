@@ -35,7 +35,7 @@ public class TrackListMap extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_track_list, container, false);
 
-        recyclerView = view.findViewById(R.id.rvTracklist);
+        recyclerView = view.findViewById(R.id.recyclerFavorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         srchView = view.findViewById(R.id.srchTrack);

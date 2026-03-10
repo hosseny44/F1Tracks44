@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class TrackItem implements Parcelable {
-    private String CountryName;
+    private String countryName;
     private String EXP;
     private String imgCountry;
     private String id;
@@ -34,7 +34,7 @@ public class TrackItem implements Parcelable {
                      String firstGrandPrix, String imageUrl, String circuitType,
                      String trackDirection, String trackWidth, String tyreWear,
                      String weatherConditions, String elevation,
-                     String drivingDifficulty, String location , String CountryName , String EXP ,
+                     String drivingDifficulty, String location , String countryName , String EXP ,
                      String imgCountry) {
 
         this.id = id;
@@ -52,7 +52,7 @@ public class TrackItem implements Parcelable {
         this.drivingDifficulty = drivingDifficulty;
         this.location = location;
         this.isFavorite = false;
-        this.CountryName = CountryName;
+        this.countryName = countryName;
         this.EXP = EXP;
         this.imgCountry = imgCountry;
     }
@@ -72,7 +72,7 @@ public class TrackItem implements Parcelable {
         elevation = in.readString();
         drivingDifficulty = in.readString();
         location = in.readString();
-        CountryName = in.readString();
+        countryName = in.readString();
         EXP = in.readString();
         imgCountry = in.readString();
         isFavorite = in.readByte() != 0;
@@ -106,7 +106,7 @@ public class TrackItem implements Parcelable {
         dest.writeString(elevation);
         dest.writeString(drivingDifficulty);
         dest.writeString(location);
-        dest.writeString(CountryName);
+        dest.writeString(countryName);
         dest.writeString(EXP);
         dest.writeString(imgCountry);
         dest.writeByte((byte) (isFavorite ? 1 : 0));
@@ -164,8 +164,8 @@ public class TrackItem implements Parcelable {
 
     public boolean isFavorite() { return isFavorite; }
     public void setFavorite(boolean favorite) { this.isFavorite = favorite; }
-    private String getCountryName() {return CountryName;}
-    public void setCountryName(String countryName) {CountryName = countryName;}
+    String getCountryName() {return countryName;}
+    public void setCountryName(String countryName) {countryName = countryName;}
     public String getEXP() {return EXP;}
     public void setEXP(String EXP) {this.EXP = EXP;}
 

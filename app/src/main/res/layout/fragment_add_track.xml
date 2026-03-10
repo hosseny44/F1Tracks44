@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1C1C">
-
+>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -11,7 +9,8 @@
         android:padding="24dp"
         android:gravity="center_horizontal">
 
-        <!-- عنوان الصفحة -->
+
+    <!-- عنوان الصفحة -->
         <TextView
             android:id="@+id/tvAddTrackTitle"
             android:layout_width="wrap_content"
@@ -19,7 +18,7 @@
             android:text="Add New Track"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="#FFCC00"
+            android:textColor="#132440"
             android:layout_marginBottom="24dp"/>
 
         <!-- Basic Info -->
@@ -52,7 +51,7 @@
             android:text="Track Image"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#FFCC00"
+            android:textColor="#132440"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"/>
 

@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -54,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new AddTrackFragment();
                 } else if (item.getItemId() == R.id.action_profile) {
                     selectedFragment = new ProfileFragment();
-                } else if (item.getItemId() == R.id.action_trackmap) {
-                    selectedFragment = new TrackListMap();
+                } else if (item.getItemId() == R.id.action_more) {
+                    showMoreMenu();
+                    return true;
                 } else if (item.getItemId() == R.id.action_signout) {
                     FirebaseAuth.getInstance().signOut();
                     bottomNavigationView.setVisibility(View.GONE);
@@ -84,6 +86,38 @@ public class MainActivity extends AppCompatActivity {
 
             pushFragment(new TrackListMap());
         }
+    }
+
+    private void showMoreMenu() {
+        View moreButton = findViewById(R.id.action_more);
+        PopupMenu popup = new PopupMenu(this, moreButton);
+
+        // القائمة: Map, Favorite, Team Radio
+        popup.getMenu().add("Map");
+        popup.getMenu().add("Favorite");
+        popup.getMenu().add("Team Radio");
+
+        popup.setOnMenuItemClickListener(menuItem -> {
+            String title = menuItem.getTitle().toString();
+            Fragment fragment = null;
+
+            switch (title) {
+                case "Map":
+                    fragment = new TrackListMap();
+                    break;
+                case "Favorite":
+                    fragment = new FavFragment();
+                    break;
+                case "Team Radio":
+                    fragment = new TeamRadioFragment();
+                    break;
+            }
+
+            if (fragment != null) pushFragment(fragment);
+            return true;
+        });
+
+        popup.show();
     }
 
     public User getUserDataObject() {
