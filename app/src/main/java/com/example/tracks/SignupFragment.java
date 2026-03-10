@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
 
 public class SignupFragment extends Fragment {
 
@@ -61,6 +63,14 @@ public class SignupFragment extends Fragment {
         });
 
         btnSignup.setOnClickListener(v -> signupUser());
+
+        TextView tvLogin = getView().findViewById(R.id.tvLoginSignup);
+        tvLogin.setOnClickListener(v -> {
+            FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout, new LoginFragment());
+            ft.addToBackStack(null);
+            ft.commit();
+        });
     }
 
     @Override
@@ -140,7 +150,9 @@ public class SignupFragment extends Fragment {
 
     private void saveUserToFirestore(String uid, String firstName, String lastName, String phone, String email, String photoUrl) {
 
+        // إنشاء user + تهيئة favorites كـ empty list
         User user = new User(firstName, lastName, phone, photoUrl , "", email);
+        user.setFavorites(new ArrayList<>());
 
         fbs.getFire().collection("users").document(uid)
                 .set(user)
@@ -166,10 +178,5 @@ public class SignupFragment extends Fragment {
         Menu menu = bottomNav.getMenu();
         FirebaseUser currentUser = fbs.getAuth().getCurrentUser();
 
-        if (currentUser == null || !currentUser.getEmail().equals("hsynylmy@gmail.com")) {
-            menu.findItem(R.id.action_add).setVisible(false);
-        } else {
-            menu.findItem(R.id.action_add).setVisible(true);
-        }
     }
 }

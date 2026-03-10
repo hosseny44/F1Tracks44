@@ -34,22 +34,15 @@ public class TrackListMap extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_track_list, container, false);
-
         recyclerView = view.findViewById(R.id.recyclerFavorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         srchView = view.findViewById(R.id.srchTrack);
-
         trackList = new ArrayList<>();
         filteredList = new ArrayList<>();
-
         adapter = new MyAdapter(getActivity(), trackList , "map") ;
         recyclerView.setAdapter(adapter);
-
         db = FirebaseFirestore.getInstance();
         loadTracks();
-
-        // البحث
         srchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

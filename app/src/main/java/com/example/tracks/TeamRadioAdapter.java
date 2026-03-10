@@ -2,13 +2,13 @@ package com.example.tracks;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -34,7 +34,11 @@ public class TeamRadioAdapter extends RecyclerView.Adapter<TeamRadioAdapter.Radi
     @Override
     public void onBindViewHolder(@NonNull RadioViewHolder holder, int position) {
         TeamRadio radio = radioList.get(position);
-        holder.driverNumber.setText("Driver: " + radio.getDriver_number());
+
+        holder.driverNumber.setText("Driver Number: " + radio.getDriver_number());
+        holder.radioDate.setText("Date: " + radio.getDate());
+        holder.tvSession.setText("Session: " + radio.getSession_key());
+        holder.tvMeeting.setText("Meeting: " + radio.getMeeting_key());
 
         holder.playButton.setOnClickListener(v -> {
             MediaPlayer player = new MediaPlayer();
@@ -54,12 +58,15 @@ public class TeamRadioAdapter extends RecyclerView.Adapter<TeamRadioAdapter.Radi
     }
 
     public static class RadioViewHolder extends RecyclerView.ViewHolder {
-        TextView driverNumber;
+        TextView driverNumber, radioDate, tvSession, tvMeeting;
         Button playButton;
 
         public RadioViewHolder(@NonNull View itemView) {
             super(itemView);
             driverNumber = itemView.findViewById(R.id.driverNumber);
+            radioDate = itemView.findViewById(R.id.radioDate);
+            tvSession = itemView.findViewById(R.id.tvSession);
+            tvMeeting = itemView.findViewById(R.id.tvMeeting);
             playButton = itemView.findViewById(R.id.playButton);
         }
     }

@@ -36,7 +36,6 @@ public class TrackDetailsFragment extends Fragment {
     private F1Track myTrack;
 
     private Button btnReminder;
-    private boolean isEnlarged = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,19 +48,9 @@ public class TrackDetailsFragment extends Fragment {
         super.onStart();
         init();
 
-        // تكبير وتصغير الصورة عند الضغط
-        ivTrackPhoto.setOnClickListener(v -> {
-            if (isEnlarged) {
-                ivTrackPhoto.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            } else {
-                ivTrackPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            }
-            isEnlarged = !isEnlarged;
-        });
     }
 
     private void init() {
-        // ربط العناصر من XML
         tvTrackName = getView().findViewById(R.id.tvTrackName);
         tvRaceDistance = getView().findViewById(R.id.tvRaceDistance);
         tvNumberOfLaps = getView().findViewById(R.id.tvNumberOfLaps);
@@ -76,8 +65,6 @@ public class TrackDetailsFragment extends Fragment {
         tvLocation = getView().findViewById(R.id.tvLocation);
         ivTrackPhoto = getView().findViewById(R.id.ivTrackPhoto);
         btnReminder = getView().findViewById(R.id.btnR);
-
-        // استلام بيانات الحلبة من Bundle
         Bundle args = getArguments();
         if (args == null || args.getParcelable("track") == null) {
             Toast.makeText(getActivity(), "Track data not found", Toast.LENGTH_SHORT).show();
@@ -85,8 +72,6 @@ public class TrackDetailsFragment extends Fragment {
         }
 
         myTrack = args.getParcelable("track");
-
-        // عرض البيانات
         tvTrackName.setText("Track Name: " + myTrack.getTrackName());
         tvRaceDistance.setText("Race Distance: " + myTrack.getRaceDistance() + " Km");
         tvNumberOfLaps.setText("Number Of Laps: " + myTrack.getNumberOfLaps());
@@ -99,35 +84,26 @@ public class TrackDetailsFragment extends Fragment {
         tvElevation.setText("Elevation Above The Sea: " + myTrack.getElevation() + " m");
         tvDrivingDifficulty.setText("Driving Difficulty: " + myTrack.getDrivingDifficulty());
         tvLocation.setText("Location: " + myTrack.getLocation1());
-
-        // تحميل الصورة
         Picasso.get()
                 .load(myTrack.getImageUrl())
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(ivTrackPhoto);
-
         // طلب إذن الكتابة على التقويم إذا لم يكن موجود
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR}, 100);
         }
-
-        // ربط زر التذكير
         btnReminder.setOnClickListener(v -> addTrackRaceReminder());
     }
-
-    // قائمة كل السباقات للموسم
     private ArrayList<Race> getAllRacesForSeason() {
         ArrayList<Race> races = new ArrayList<>();
         races.add(new Race("Bahrain GB ", "Bahrain International Circuit", 2026,5,12,18,0));
         races.add(new Race("Saudi Arabia GP", "Albert Park Grand Prix Circuit", 2026,5,17,17,0));
         races.add(new Race(" Japan GP ", "Suzuka Circuit", 2026,3,29,14,0));
-        // أضف بقية السباقات هنا
         return races;
     }
 
-    // البحث عن السباق الخاص بالحلبة فقط
     private void addTrackRaceReminder() {
         ArrayList<Race> allRaces = getAllRacesForSeason();
         Race raceForThisTrack = null;
@@ -146,7 +122,6 @@ public class TrackDetailsFragment extends Fragment {
         }
     }
 
-    // اختيار تقويم صالح على الجهاز
     private long getPrimaryCalendarId() {
         long calendarId = -1;
         Cursor cursor = getActivity().getContentResolver().query(
@@ -174,8 +149,6 @@ public class TrackDetailsFragment extends Fragment {
         }
         return calendarId;
     }
-
-    // إضافة السباق للتقويم مع تذكير قبل ساعة
     private void addRaceReminderToCalendar(Race race) {
         long calendarId = getPrimaryCalendarId();
         if(calendarId == -1){

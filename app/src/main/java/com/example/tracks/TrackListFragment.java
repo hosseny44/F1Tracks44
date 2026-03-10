@@ -25,6 +25,7 @@ public class TrackListFragment extends Fragment {
     private FirebaseFirestore db;
     private SearchView srchView;
 
+
     public TrackListFragment() { }
 
     @Nullable

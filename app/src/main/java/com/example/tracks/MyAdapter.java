@@ -57,7 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 .into(holder.countryImage);
 
         // --- Favorite logic ---
-        holder.ivFavorite.setImageResource(track.isFavorite() ? R.drawable.ic_fav2_foreground : R.drawable.ic_fav1_foreground);
+        holder.ivFavorite.setImageResource(track.isFavorite() ? R.drawable.star_cheak : R.drawable.star_24);
 
         holder.ivFavorite.setOnClickListener(v -> {
             User u = fbs.getCurrentUser();

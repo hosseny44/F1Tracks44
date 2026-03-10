@@ -22,31 +22,24 @@ public class TeamRadioFragment extends Fragment {
     private RecyclerView recyclerView;
     private TeamRadioAdapter adapter;
 
-    public TeamRadioFragment() {
-        // Required empty constructor
-    }
+    public TeamRadioFragment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_team_radio, container, false);
 
-        // ربط RecyclerView
+        View view = inflater.inflate(R.layout.fragment_team_radio, container, false);
         recyclerView = view.findViewById(R.id.recyclerTeamRadio);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // جلب بيانات Team Radio
         fetchTeamRadio();
 
         return view;
     }
 
     private void fetchTeamRadio() {
-        OpenF1Service service = RetrofitClient
-                .getClient()
-                .create(OpenF1Service.class);
-
+        OpenF1Service service = RetrofitClient.getClient().create(OpenF1Service.class);
         Call<List<TeamRadio>> call = service.getTeamRadio();
 
         call.enqueue(new Callback<List<TeamRadio>>() {
