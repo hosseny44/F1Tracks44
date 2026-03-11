@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = bottomNavigationView.getMenu();
         FirebaseUser currentUser = fbs.getAuth().getCurrentUser();
 
-        if (currentUser == null || !currentUser.getEmail().equals("AA@gmail.com")) {
+        if (currentUser == null || !currentUser.getEmail().equals("Ameerr@gmail.com")) {
             menu.findItem(R.id.action_add).setVisible(false);
         } else {
             menu.findItem(R.id.action_add).setVisible(true);
