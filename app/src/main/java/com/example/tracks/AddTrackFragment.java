@@ -31,7 +31,7 @@ public class AddTrackFragment extends Fragment {
     private EditText editTrackName, editRaceDistance, editNumberOfLaps, editFirstGrandPrix,
             editCircuitType, editTrackDirection, editTrackWidth, editTyreWear,
             editWeatherConditions, editelevation, editDrivingDifficulty, editLocation,
-            editCountryName, editEXP;
+            editCountryName,  editEXP ,editId ;
 
     private ImageView imgTrack, imgCountry;
     private Button btnAddTrack;
@@ -67,6 +67,8 @@ public class AddTrackFragment extends Fragment {
         editLocation = view.findViewById(R.id.editLocation);
         editCountryName = view.findViewById(R.id.editCountryName);
         editEXP = view.findViewById(R.id.editEXP);
+        editId = view.findViewById(R.id.id);
+
 
         // --- ImageViews ---
         imgTrack = view.findViewById(R.id.ivStadiumImage);
@@ -116,6 +118,7 @@ public class AddTrackFragment extends Fragment {
     }
 
     private void saveTrack() {
+        String id = editId.getText().toString().trim();
         String trackName = editTrackName.getText().toString().trim();
         String raceDistance = editRaceDistance.getText().toString().trim();
         String numberOfLaps = editNumberOfLaps.getText().toString().trim();
@@ -135,7 +138,8 @@ public class AddTrackFragment extends Fragment {
                 || firstGrandPrix.isEmpty() || circuitType.isEmpty() || trackDirection.isEmpty()
                 || trackWidth.isEmpty() || tyreWear.isEmpty() || weatherConditions.isEmpty()
                 || elevation.isEmpty() || drivingDifficulty.isEmpty() || location.isEmpty()
-                || countryName.isEmpty() || EXP.isEmpty()) {
+                || countryName.isEmpty() || EXP.isEmpty() || id.isEmpty()
+        ) {
             Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -163,7 +167,7 @@ public class AddTrackFragment extends Fragment {
                                                     String countryImageUrl = countryUri.toString();
 
                                                     F1Track track = new F1Track(
-                                                            "",
+                                                            id,
                                                             trackName,
                                                             raceDistance,
                                                             numberOfLaps,

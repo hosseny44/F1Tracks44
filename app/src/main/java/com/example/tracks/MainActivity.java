@@ -172,5 +172,11 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setVisibility(View.VISIBLE);
         Menu menu = bottomNavigationView.getMenu();
         FirebaseUser currentUser = fbs.getAuth().getCurrentUser();
+
+        if (currentUser == null || !currentUser.getEmail().equals("AA@gmail.com")) {
+            menu.findItem(R.id.action_add).setVisible(false);
+        } else {
+            menu.findItem(R.id.action_add).setVisible(true);
+        }
     }
 }

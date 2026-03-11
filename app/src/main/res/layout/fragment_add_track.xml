@@ -21,7 +21,6 @@
             android:textColor="#132440"
             android:layout_marginBottom="24dp"/>
 
-        <!-- Basic Info -->
         <EditText
             android:id="@+id/editCountryName"
             android:layout_width="match_parent"
@@ -32,6 +31,17 @@
             android:textColorHint="#AAAAAA"
             android:padding="12dp"
             android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/track_edittext_bg"
+            android:hint="id"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#AAAAAA" />
 
         <EditText
             android:id="@+id/editEXP"
