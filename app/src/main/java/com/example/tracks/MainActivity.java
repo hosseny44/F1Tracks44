@@ -92,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
         View moreButton = findViewById(R.id.action_more);
         PopupMenu popup = new PopupMenu(this, moreButton);
         popup.getMenu().add("Map");
-        popup.getMenu().add("Races");
+        popup.getMenu().add("All The Teams");
         popup.getMenu().add("Team Radio");
+        popup.getMenu().add("All The Seasons");
 
         popup.setOnMenuItemClickListener(menuItem -> {
             String title = menuItem.getTitle().toString();
@@ -103,11 +104,14 @@ public class MainActivity extends AppCompatActivity {
                 case "Map":
                     fragment = new TrackListMap();
                     break;
-                case "Races":
+                case "All The Teams":
                     fragment = new TeamsFragment();
                     break;
                 case "Team Radio":
                     fragment = new TeamRadioFragment();
+                    break;
+                case "All The Seasons":
+                    fragment = new SeasonsFragment();
                     break;
             }
 

@@ -16,6 +16,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.TeamViewHold
 
     private List<F1Team> teams;
 
+
     public TeamsAdapter(List<F1Team> teams) {
         this.teams = teams;
     }
@@ -31,7 +32,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.TeamViewHold
     public void onBindViewHolder(@NonNull TeamViewHolder holder, int position) {
         F1Team team = teams.get(position);
         holder.name.setText(team.getTeamName());
-        holder.nationality.setText(team.getTeamNationality());
+        holder.nationality.setText("Vationality:"+team.getTeamNationality());
         holder.firstAppearance.setText("First Appearance: " + team.getFirstAppeareance());
         holder.constructorsChampionships.setText("Constructors Championships: " + team.getConstructorsChampionships());
         holder.driversChampionships.setText("Drivers Championships: " + team.getDriversChampionships());

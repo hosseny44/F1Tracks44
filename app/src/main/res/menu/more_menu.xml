@@ -8,7 +8,7 @@
             android:id="@+id/action_teamradio"
             android:title="Team Radio" />
     <item
-        android:id="@+id/Races"
-        android:title="All Races " />
+        android:id="@+id/Teams"
+        android:title="All The Teams " />
 
 </menu>
