@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,15 +17,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<F1Track> trackList;
     private String pageType;
-    private FirebaseServices fbs;
 
     public MyAdapter(Context context, ArrayList<F1Track> trackList, String pageType) {
         this.context = context;
         this.trackList = trackList;
         this.pageType = pageType;
-        this.fbs = FirebaseServices.getInstance();
     }
-
 
     @Override
     public MyViewHolder onCreateViewHolder(android.view.ViewGroup parent, int viewType) {
@@ -41,49 +37,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.CountryName.setText(track.getCountryName());
         holder.exp.setText(track.getEXP());
 
-        // تحميل صورة التراك
         Glide.with(context)
                 .load(track.getImageUrl() == null || track.getImageUrl().isEmpty() ?
                         R.drawable.ic_launcher_foreground : track.getImageUrl())
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.trackImage);
-
-        // تحميل صورة الدولة
         Glide.with(context)
                 .load(track.getImgCountry() == null || track.getImgCountry().isEmpty() ?
                         R.drawable.ic_launcher_foreground : track.getImgCountry())
                 .circleCrop()
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.countryImage);
-
-        // --- Favorite logic ---
-        holder.ivFavorite.setImageResource(track.isFavorite() ? R.drawable.star_cheak : R.drawable.star_24);
-
-        holder.ivFavorite.setOnClickListener(v -> {
-            User u = fbs.getCurrentUser();
-            if (u == null) return;
-
-            boolean isFav = u.getFavorites().contains(track.getId());
-
-            if (isFav) {
-                u.getFavorites().remove(track.getId());
-                track.setFavorite(false);
-            } else {
-                u.getFavorites().add(track.getId());
-                track.setFavorite(true);
-            }
-
-            // تحديث الذاكرة و Firebase فورًا
-            fbs.setCurrentUser(u);
-            fbs.updateUser(u);
-
-            notifyItemChanged(position);
-
-            Toast.makeText(context, track.isFavorite() ? "Added to favorites" : "Removed from favorites",
-                    Toast.LENGTH_SHORT).show();
-        });
-
-        // الضغط على الصف نفسه
         holder.itemView.setOnClickListener(v -> {
             if (pageType.equals("list")) {
                 Bundle args = new Bundle();
@@ -121,7 +85,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView CountryName, exp;
-        ImageView trackImage, countryImage, ivFavorite;
+        ImageView trackImage, countryImage;
 
         public MyViewHolder(android.view.View itemView) {
             super(itemView);
@@ -129,10 +93,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             exp = itemView.findViewById(R.id.tvEXP);
             trackImage = itemView.findViewById(R.id.ivStadiumImage);
             countryImage = itemView.findViewById(R.id.ivCountry);
-            ivFavorite = itemView.findViewById(R.id.ivFavorite);
-
-
         }
     }
-
 }

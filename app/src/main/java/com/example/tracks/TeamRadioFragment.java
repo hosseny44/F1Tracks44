@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -39,7 +38,7 @@ public class TeamRadioFragment extends Fragment {
     }
 
     private void fetchTeamRadio() {
-        OpenF1Service service = RetrofitClient.getClient().create(OpenF1Service.class);
+        RetrofitClient.TeamRadioService service = RetrofitClient.getRadioService();
         Call<List<TeamRadio>> call = service.getTeamRadio();
 
         call.enqueue(new Callback<List<TeamRadio>>() {

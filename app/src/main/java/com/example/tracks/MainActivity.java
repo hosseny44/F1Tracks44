@@ -91,10 +91,8 @@ public class MainActivity extends AppCompatActivity {
     private void showMoreMenu() {
         View moreButton = findViewById(R.id.action_more);
         PopupMenu popup = new PopupMenu(this, moreButton);
-
-        // القائمة: Map, Favorite, Team Radio
         popup.getMenu().add("Map");
-        popup.getMenu().add("Favorite");
+        popup.getMenu().add("Races");
         popup.getMenu().add("Team Radio");
 
         popup.setOnMenuItemClickListener(menuItem -> {
@@ -105,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 case "Map":
                     fragment = new TrackListMap();
                     break;
-                case "Favorite":
-                    fragment = new FavFragment();
+                case "Races":
+                    fragment = new TeamsFragment();
                     break;
                 case "Team Radio":
                     fragment = new TeamRadioFragment();

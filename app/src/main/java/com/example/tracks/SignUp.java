@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -24,7 +23,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class SignupFragment extends Fragment {
+public class SignUp extends Fragment {
 
     private EditText etFirstName, etLastName, etPhone, etPassword, etEmail;
     private Button btnSignup;
@@ -33,7 +32,7 @@ public class SignupFragment extends Fragment {
     private FirebaseServices fbs;
     private static final int GALLERY_REQUEST_CODE = 123;
 
-    public SignupFragment() {}
+    public SignUp() {}
 
     @Override
     public View onCreateView(android.view.LayoutInflater inflater, android.view.ViewGroup container,

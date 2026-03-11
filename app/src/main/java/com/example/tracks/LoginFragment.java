@@ -82,7 +82,7 @@ public class LoginFragment extends Fragment {
         FragmentTransaction ft = requireActivity()
                 .getSupportFragmentManager()
                 .beginTransaction();
-        ft.replace(R.id.frameLayout, new SignupFragment());
+        ft.replace(R.id.frameLayout, new SignUp());
         ft.commit();
     }
 

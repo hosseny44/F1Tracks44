@@ -44,9 +44,7 @@ public class ProfileFragment extends Fragment {
         Profile = getView().findViewById(R.id.Profile);
         tvName = getView().findViewById(R.id.tvName);
         tvEmail = getView().findViewById(R.id.tvEmail);
-        btnFav = getView().findViewById(R.id.btnfav1);
         btnSet = getView().findViewById(R.id.btsSet);
-        btnFav.setOnClickListener(v -> gotoFavorite());
         btnSet.setOnClickListener(v -> gotoUpdateProfileFragment());
 
         fillUserData();
@@ -76,11 +74,5 @@ public class ProfileFragment extends Fragment {
         ft.commit();
     }
 
-    private void gotoFavorite() {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager()
-                .beginTransaction();
-        ft.replace(R.id.frameLayout, new FavFragment());
-        ft.commit();
-    }
 
 }

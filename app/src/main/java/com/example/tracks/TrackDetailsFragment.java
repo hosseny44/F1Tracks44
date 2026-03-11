@@ -96,19 +96,19 @@ public class TrackDetailsFragment extends Fragment {
         }
         btnReminder.setOnClickListener(v -> addTrackRaceReminder());
     }
-    private ArrayList<Race> getAllRacesForSeason() {
-        ArrayList<Race> races = new ArrayList<>();
-        races.add(new Race("Bahrain GB ", "Bahrain International Circuit", 2026,5,12,18,0));
-        races.add(new Race("Saudi Arabia GP", "Albert Park Grand Prix Circuit", 2026,5,17,17,0));
-        races.add(new Race(" Japan GP ", "Suzuka Circuit", 2026,3,29,14,0));
+    private ArrayList<Team> getAllRacesForSeason() {
+        ArrayList<Team> races = new ArrayList<>();
+        races.add(new Team("Bahrain GB ", "Bahrain International Circuit", 2026,5,12,18,0));
+        races.add(new Team("Saudi Arabia GP", "Albert Park Grand Prix Circuit", 2026,5,17,17,0));
+        races.add(new Team(" Japan GP ", "Suzuka Circuit", 2026,3,29,14,0));
         return races;
     }
 
     private void addTrackRaceReminder() {
-        ArrayList<Race> allRaces = getAllRacesForSeason();
-        Race raceForThisTrack = null;
+        ArrayList<Team> allRaces = getAllRacesForSeason();
+        Team raceForThisTrack = null;
 
-        for(Race r : allRaces){
+        for(Team r : allRaces){
             if(r.trackName.equalsIgnoreCase(myTrack.getTrackName())){
                 raceForThisTrack = r;
                 break;
@@ -149,7 +149,7 @@ public class TrackDetailsFragment extends Fragment {
         }
         return calendarId;
     }
-    private void addRaceReminderToCalendar(Race race) {
+    private void addRaceReminderToCalendar(Team race) {
         long calendarId = getPrimaryCalendarId();
         if(calendarId == -1){
             Toast.makeText(getActivity(), "No calendar found on device!", Toast.LENGTH_SHORT).show();
