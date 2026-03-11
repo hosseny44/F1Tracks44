@@ -1,6 +1,5 @@
 package com.example.tracks;
 
-import android.os.Parcel;
 import java.util.ArrayList;
 
 public class User {
@@ -11,7 +10,6 @@ public class User {
     private String phone;
     private String address;
     private String photo;
-    private String password;
     private ArrayList<String> favorites;
 
     public User() {
@@ -41,9 +39,6 @@ public class User {
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
 
@@ -55,16 +50,4 @@ public class User {
         return favorites;
     }
     public void setFavorites(ArrayList<String> favorites) { this.favorites = favorites; }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", Photo='" + photo + '\'' +
-                '}';
-    }
 }

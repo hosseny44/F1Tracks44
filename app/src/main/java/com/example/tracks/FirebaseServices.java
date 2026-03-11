@@ -73,10 +73,9 @@ public class FirebaseServices {
                         "firstName", user.getFirstName(),
                         "lastName", user.getLastName(),
                         "username", user.getUsername(),
-                        "address", user.getAddress(),
                         "phone", user.getPhone(),
-                        "photo", user.getPhoto(),
-                        "favorites", user.getFavorites()
+                        "address", user.getAddress(),
+                        "photo", user.getPhoto()
                 )
                 .addOnSuccessListener(aVoid -> currentUser = user)
                 .addOnFailureListener(e -> {});

@@ -86,7 +86,7 @@ public class UpdateProfile2 extends Fragment {
         String username = etUsername.getText().toString().trim();
         String selectedImage = fbs.getSelectedImageURL() != null ? fbs.getSelectedImageURL().toString() : "";
 
-        if (firstname.isEmpty() || lastname.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+        if (firstname.isEmpty() || lastname.isEmpty() || phone.isEmpty() || email.isEmpty()|| username.isEmpty()) {
             Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -106,7 +106,7 @@ public class UpdateProfile2 extends Fragment {
                     return;
                 }
 
-                User updatedUser = new User(firstname, lastname, phone, selectedImage, username ,email);
+                User updatedUser = new User(firstname, lastname, username, phone ,email  , selectedImage) ;
 
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 fbs.getFire().collection("users").document(uid)
