@@ -10,7 +10,6 @@
         android:gravity="center_horizontal">
 
 
-    <!-- عنوان الصفحة -->
         <TextView
             android:id="@+id/tvAddTrackTitle"
             android:layout_width="wrap_content"

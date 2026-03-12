@@ -28,8 +28,7 @@ import java.util.TimeZone;
 public class TrackDetailsFragment extends Fragment {
 
     private TextView tvTrackName, tvRaceDistance, tvNumberOfLaps, tvFirstGrandPrix,
-            tvCircuitType, tvTrackDirection, tvTrackWidth,
-            tvTyreWear, tvWeatherConditions, tvElevation,
+            tvCircuitType, tvTrackDirection, tvTrackWidth, tvWeatherConditions, tvElevation,
             tvDrivingDifficulty, tvLocation;
 
     private ImageView ivTrackPhoto;
@@ -58,7 +57,6 @@ public class TrackDetailsFragment extends Fragment {
         tvCircuitType = getView().findViewById(R.id.tvCircuitType);
         tvTrackDirection = getView().findViewById(R.id.tvTrackDirection);
         tvTrackWidth = getView().findViewById(R.id.tvTrackWidth);
-        tvTyreWear = getView().findViewById(R.id.tvTyreWear);
         tvWeatherConditions = getView().findViewById(R.id.tvWeatherConditions);
         tvElevation = getView().findViewById(R.id.tvElevation);
         tvDrivingDifficulty = getView().findViewById(R.id.tvDrivingDifficulty);
@@ -79,7 +77,6 @@ public class TrackDetailsFragment extends Fragment {
         tvCircuitType.setText("Circuit Type: " + myTrack.getCircuitType());
         tvTrackDirection.setText("Track Direction: " + myTrack.getTrackDirection());
         tvTrackWidth.setText("Track Width: " + myTrack.getTrackWidth());
-        tvTyreWear.setText("Tyre Wear: " + myTrack.getTyreWear());
         tvWeatherConditions.setText("Weather Conditions: " + myTrack.getWeatherConditions());
         tvElevation.setText("Elevation Above The Sea: " + myTrack.getElevation() + " m");
         tvDrivingDifficulty.setText("Driving Difficulty: " + myTrack.getDrivingDifficulty());
@@ -89,7 +86,6 @@ public class TrackDetailsFragment extends Fragment {
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(ivTrackPhoto);
-        // طلب إذن الكتابة على التقويم إذا لم يكن موجود
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR}, 100);
@@ -99,8 +95,11 @@ public class TrackDetailsFragment extends Fragment {
     private ArrayList<Team> getAllRacesForSeason() {
         ArrayList<Team> races = new ArrayList<>();
         races.add(new Team("Bahrain GB ", "Bahrain International Circuit", 2026,5,12,18,0));
-        races.add(new Team("Saudi Arabia GP", "Albert Park Grand Prix Circuit", 2026,5,17,17,0));
+        races.add(new Team("Abu Dhabi GP", "Albert Park Grand Prix Circuit", 2026,5,17,17,0));
         races.add(new Team(" Japan GP ", "Suzuka Circuit", 2026,3,29,14,0));
+        races.add(new Team("Saudi Arabia GP ", "Jeddah Corniche Circuit", 2026,4,19,20,0));
+        races.add(new Team(" United States GP ", "Miami International Autodrome Circuit", 2026,5,3,16,0));
+
         return races;
     }
 

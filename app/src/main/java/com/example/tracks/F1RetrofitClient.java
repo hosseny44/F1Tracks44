@@ -10,7 +10,6 @@ public class F1RetrofitClient {
     private static final String BASE_URL = "https://f1api.dev/";
     private static Retrofit retrofit = null;
 
-    // إنشاء Retrofit instance
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()

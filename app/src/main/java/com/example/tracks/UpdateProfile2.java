@@ -90,8 +90,6 @@ public class UpdateProfile2 extends Fragment {
             Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // جلب المستخدم مباشرة من Firestore
         fbs.getCurrentObjectUser(current -> {
             if (current != null) {
                 boolean isChanged = !current.getFirstName().equals(firstname) ||

@@ -7,7 +7,6 @@ import retrofit2.http.Query;
 
 public interface OpenF1Service {
 
-    // Teams API
     @GET("api/current/teams")
     Call<TeamsResponse> getTeams();
 

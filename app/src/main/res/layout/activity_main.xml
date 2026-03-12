@@ -2,8 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!-- الخلفية الموحدة لكل الفراجمنت -->
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
@@ -12,7 +10,6 @@
         android:alpha="1"
         android:src="@drawable/f1_background_foreground" />
 
-    <!-- BottomNavigationView -->
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"

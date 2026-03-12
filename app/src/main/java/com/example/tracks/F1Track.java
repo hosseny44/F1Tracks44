@@ -20,19 +20,17 @@ public class F1Track implements Parcelable {
     private String circuitType;
     private String trackDirection;
     private String trackWidth;
-    private String tyreWear;
     private String weatherConditions;
     private String elevation;
     private String drivingDifficulty;
     private String location;
 
-    // 🔹 Firebase يحتاج constructor فاضي
     public F1Track() {}
 
     public F1Track(String id ,String trackName, String raceDistance, String numberOfLaps,
                    String firstGrandPrix, String imageUrl,
                    String circuitType, String trackDirection,
-                   String trackWidth, String tyreWear,
+                   String trackWidth,
                    String weatherConditions, String elevation,
                    String drivingDifficulty, String location , String countryName , String EXP , String imgCountry
            ) {
@@ -45,7 +43,6 @@ public class F1Track implements Parcelable {
         this.circuitType = circuitType;
         this.trackDirection = trackDirection;
         this.trackWidth = trackWidth;
-        this.tyreWear = tyreWear;
         this.weatherConditions = weatherConditions;
         this.elevation = elevation;
         this.drivingDifficulty = drivingDifficulty;
@@ -66,7 +63,6 @@ public class F1Track implements Parcelable {
         circuitType = in.readString();
         trackDirection = in.readString();
         trackWidth = in.readString();
-        tyreWear = in.readString();
         weatherConditions = in.readString();
         elevation = in.readString();
         drivingDifficulty = in.readString();
@@ -88,7 +84,6 @@ public class F1Track implements Parcelable {
         dest.writeString(circuitType);
         dest.writeString(trackDirection);
         dest.writeString(trackWidth);
-        dest.writeString(tyreWear);
         dest.writeString(weatherConditions);
         dest.writeString(elevation);
         dest.writeString(drivingDifficulty);
@@ -110,7 +105,6 @@ public class F1Track implements Parcelable {
         public F1Track[] newArray(int size) { return new F1Track[size]; }
     };
 
-    // ======== Getters & Setters ========
     public boolean isFavorite() { return isFavorite; }
     public void setFavorite(boolean favorite) { this.isFavorite = favorite; }
     public String getId() { return id; }
@@ -137,8 +131,7 @@ public class F1Track implements Parcelable {
     public void setTrackDirection(String trackDirection) { this.trackDirection = trackDirection; }
     public String getTrackWidth() { return trackWidth; }
     public void setTrackWidth(String trackWidth) { this.trackWidth = trackWidth; }
-    public String getTyreWear() { return tyreWear; }
-    public void setTyreWear(String tyreWear) { this.tyreWear = tyreWear; }
+
     public String getWeatherConditions() { return weatherConditions; }
     public void setWeatherConditions(String weatherConditions) { this.weatherConditions = weatherConditions; }
     public String getElevation() { return elevation; }

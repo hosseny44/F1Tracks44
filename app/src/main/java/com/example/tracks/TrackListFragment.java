@@ -49,8 +49,6 @@ public class TrackListFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
         loadTracks();
-
-        // البحث
         srchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

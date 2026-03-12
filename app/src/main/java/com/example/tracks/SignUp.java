@@ -84,7 +84,7 @@ public class SignUp extends Fragment {
         }
     }
 
-    // دالة التسجيل
+
     private void signupUser() {
 
         String firstName = etFirstName.getText().toString().trim();
@@ -109,8 +109,6 @@ public class SignUp extends Fragment {
             etPassword.setError("Password must be at least 6 characters");
             return;
         }
-
-        // إنشاء المستخدم في Firebase Auth
         fbs.getAuth()
                 .createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
@@ -143,8 +141,6 @@ public class SignUp extends Fragment {
                     }
                 });
     }
-
-    // دالة حفظ المستخدم في Firestore
     private void saveUserToFirestore(String firstName, String lastName, String username,
                                      String phone, String email, String photoUrl) {
 
@@ -173,8 +169,6 @@ public class SignUp extends Fragment {
                 .addOnFailureListener(e -> Toast.makeText(getActivity(),
                         "Error saving user: " + e.getMessage(), Toast.LENGTH_LONG).show());
     }
-
-    // إظهار Bottom Navigation بعد التسجيل
     private void setNavigationBarVisible() {
         BottomNavigationView bottomNav = ((MainActivity)getActivity()).getBottomNavigationView();
         bottomNav.setVisibility(View.VISIBLE);

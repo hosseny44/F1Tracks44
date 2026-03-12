@@ -33,8 +33,6 @@ public class SeasonsAdapter extends RecyclerView.Adapter<SeasonsAdapter.SeasonVi
         holder.name.setText(season.getChampionshipName());
         holder.year.setText("Year: " + season.getYear());
         holder.url.setText("Wiki: " +season.getUrl());
-
-        // فتح الرابط عند الضغط
         holder.url.setOnClickListener(v -> {
             String url = season.getUrl();
             if (url != null && !url.isEmpty()) {

@@ -29,7 +29,7 @@ import java.util.UUID;
 public class AddTrackFragment extends Fragment {
 
     private EditText editTrackName, editRaceDistance, editNumberOfLaps, editFirstGrandPrix,
-            editCircuitType, editTrackDirection, editTrackWidth, editTyreWear,
+            editCircuitType, editTrackDirection, editTrackWidth,
             editWeatherConditions, editelevation, editDrivingDifficulty, editLocation,
             editCountryName,  editEXP ,editId ;
 
@@ -51,8 +51,6 @@ public class AddTrackFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_add_track, container, false);
-
-        // --- EditTexts ---
         editTrackName = view.findViewById(R.id.editTrackName);
         editRaceDistance = view.findViewById(R.id.editRaceDistance);
         editNumberOfLaps = view.findViewById(R.id.editNumberOfLaps);
@@ -60,7 +58,6 @@ public class AddTrackFragment extends Fragment {
         editCircuitType = view.findViewById(R.id.editCircuitType);
         editTrackDirection = view.findViewById(R.id.editTrackDirection);
         editTrackWidth = view.findViewById(R.id.editTrackWidth);
-        editTyreWear = view.findViewById(R.id.editTyreWear);
         editWeatherConditions = view.findViewById(R.id.editWeatherConditions);
         editelevation = view.findViewById(R.id.editelevation);
         editDrivingDifficulty = view.findViewById(R.id.editDrivingDifficulty);
@@ -70,7 +67,6 @@ public class AddTrackFragment extends Fragment {
         editId = view.findViewById(R.id.id);
 
 
-        // --- ImageViews ---
         imgTrack = view.findViewById(R.id.ivStadiumImage);
         imgCountry = view.findViewById(R.id.imgCountry);
 
@@ -78,8 +74,6 @@ public class AddTrackFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
-
-        // --- Image Picker Launcher واحد فقط ---
         pickImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -126,7 +120,6 @@ public class AddTrackFragment extends Fragment {
         String circuitType = editCircuitType.getText().toString().trim();
         String trackDirection = editTrackDirection.getText().toString().trim();
         String trackWidth = editTrackWidth.getText().toString().trim();
-        String tyreWear = editTyreWear.getText().toString().trim();
         String weatherConditions = editWeatherConditions.getText().toString().trim();
         String elevation = editelevation.getText().toString().trim();
         String drivingDifficulty = editDrivingDifficulty.getText().toString().trim();
@@ -136,7 +129,7 @@ public class AddTrackFragment extends Fragment {
 
         if (trackName.isEmpty() || raceDistance.isEmpty() || numberOfLaps.isEmpty()
                 || firstGrandPrix.isEmpty() || circuitType.isEmpty() || trackDirection.isEmpty()
-                || trackWidth.isEmpty() || tyreWear.isEmpty() || weatherConditions.isEmpty()
+                || trackWidth.isEmpty()  || weatherConditions.isEmpty()
                 || elevation.isEmpty() || drivingDifficulty.isEmpty() || location.isEmpty()
                 || countryName.isEmpty() || EXP.isEmpty() || id.isEmpty()
         ) {
@@ -176,7 +169,6 @@ public class AddTrackFragment extends Fragment {
                                                             circuitType,
                                                             trackDirection,
                                                             trackWidth,
-                                                            tyreWear,
                                                             weatherConditions,
                                                             elevation,
                                                             drivingDifficulty,

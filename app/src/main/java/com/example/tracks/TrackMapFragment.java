@@ -27,8 +27,6 @@ public class TrackMapFragment extends DialogFragment implements OnMapReadyCallba
 
     private static final String ARG_ADDRESS = "address";
     private String address;
-
-    // إنشاء Fragment مع تمرير العنوان
     public static TrackMapFragment newInstance(String address) {
         TrackMapFragment fragment = new TrackMapFragment();
         Bundle args = new Bundle();
@@ -68,13 +66,9 @@ public class TrackMapFragment extends DialogFragment implements OnMapReadyCallba
                 if (addresses != null && !addresses.isEmpty()) {
                     LatLng location = new LatLng(addresses.get(0).getLatitude(),
                             addresses.get(0).getLongitude());
-
-                    // إضافة Marker للخريطة
                     googleMap.addMarker(new MarkerOptions()
                             .position(location)
                             .title(address));
-
-                    // تحريك الكاميرا على الموقع
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
                 }
             } catch (IOException e) {
