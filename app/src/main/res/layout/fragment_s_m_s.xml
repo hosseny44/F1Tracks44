@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- العنوان -->
+        <TextView
+            android:id="@+id/tvSmsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send SMS"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#132440"
+            android:layout_marginBottom="32dp"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"/>
+
+        <!-- رقم الهاتف -->
+        <EditText
+            android:id="@+id/etPhoneNumberMain"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/login_edittext_bg"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#AAAAAA"/>
+
+        <EditText
+            android:id="@+id/etMsgBosyMain"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/login_edittext_bg"
+            android:hint="Write your message..."
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#AAAAAA"/>
+
+        <Button
+            android:id="@+id/btnSendSMSMain"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:text="SEND SMS"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:backgroundTint="#132440"/>
+
+    </LinearLayout>
+
+</ScrollView>

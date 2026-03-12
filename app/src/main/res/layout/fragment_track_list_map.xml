@@ -8,9 +8,8 @@
     android:padding="8dp"
     android:background="@android:color/transparent"
 
-    tools:context=".TrackListMap">
+    tools:context=".Fragments.TrackListMap">
 
-    <!-- Header مع صورة المستخدم و SearchView -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +17,6 @@
         android:gravity="center_vertical"
         android:paddingBottom="8dp">
 
-        <!-- SearchView -->
         <SearchView
             android:id="@+id/srchViewTrackListMapFragment"
             android:layout_width="0dp"
@@ -36,8 +34,14 @@
        />
 
     </LinearLayout>
-
-    <!-- RecyclerView لعرض التراكات -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:text="F1 Track Map"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTracklistMap"
         android:layout_width="match_parent"

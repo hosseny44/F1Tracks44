@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:padding="12dp">
 
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Team-Driver Radio Communications"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTeamRadio"
         android:layout_width="match_parent"

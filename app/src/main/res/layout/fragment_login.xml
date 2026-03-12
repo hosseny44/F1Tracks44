@@ -6,12 +6,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 
-        <!-- عنوان الصفحة -->
         <TextView
             android:id="@+id/tvLoginTitle"
             android:layout_width="wrap_content"
@@ -22,7 +21,6 @@
             android:textColor="#132440"
             android:layout_marginBottom="32dp"/>
 
-        <!-- البريد الإلكتروني -->
         <EditText
             android:id="@+id/etUsernameLogin"
             android:layout_width="match_parent"
@@ -34,7 +32,6 @@
             android:textColorHint="#AAAAAA"
             android:background="@drawable/login_edittext_bg"/>
 
-        <!-- كلمة المرور -->
         <EditText
             android:id="@+id/etPasswordLogin"
             android:layout_width="match_parent"
@@ -47,8 +44,6 @@
             android:textColorHint="#AAAAAA"
             android:background="@drawable/login_edittext_bg"/>
 
-
-        <!-- Forgot Password -->
         <TextView
             android:id="@+id/tvForgotPasswordLogin"
             android:layout_width="wrap_content"
@@ -57,7 +52,6 @@
             android:text="Forgot Password?"
             android:textColor="#FF4444"/>
 
-        <!-- Signup -->
         <TextView
             android:id="@+id/tvSignupLogin"
             android:layout_width="wrap_content"
@@ -65,7 +59,7 @@
             android:layout_marginTop="12dp"
             android:text="Don't have an account? Sign up"
             android:textColor="#FF4444" />
-        <!-- زر تسجيل الدخول -->
+
         <Button
             android:id="@+id/btnLoginLogin"
             android:layout_width="match_parent"
@@ -74,7 +68,6 @@
             android:backgroundTint="#132440"
             android:text="Login"
             android:textColor="#000000" />
-        <!-- زر Admin -->
 
     </LinearLayout>
 </ScrollView>

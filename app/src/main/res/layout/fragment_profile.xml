@@ -27,25 +27,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Racer Name"
+            android:text=" User Name"
+            android:textColor="#FFFFFF"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF" />
+            android:textStyle="bold" />
 
         <!-- Email -->
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="racer@email.com"
-            android:textSize="16sp"
-            android:textColor="#BBBBBB" />
+            android:text="userr@email.com"
+            android:textColor="#BBBBBB"
+            android:textSize="16sp" />
 
         <!-- Favorite Button -->
 
         <!-- Call Button -->
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/BtnCall"
+            android:id="@+id/btnSMS"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="15dp"
