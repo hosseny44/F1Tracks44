@@ -1,142 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@android:color/transparent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:padding="16dp">
 
-        <!-- صورة التراك -->
+        <!-- Image -->
         <ImageView
             android:id="@+id/ivTrackPhoto"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
-            android:contentDescription="Track Photo" />
+            android:layout_marginBottom="12dp"
+         />
 
-        <!-- بطاقة المعلومات -->
-        <LinearLayout
-            android:orientation="vertical"
+        <TextView
+            android:id="@+id/tvTrackName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:background="#1E1E1E"
-            android:elevation="6dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginHorizontal="8dp">
+            android:layout_marginBottom="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvTrackName"
-                android:layout_width="wrap_content"
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:text="Track Name"
-                android:textColor="#132440"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
 
-            <TextView
-                android:id="@+id/tvRaceDistance"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvRaceDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <!-- Laps -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
 
-            <TextView
-                android:id="@+id/tvNumberOfLaps"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvNumberOfLaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <!-- First GP -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
 
-            <TextView
-                android:id="@+id/tvFirstGrandPrix"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvFirstGrandPrix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <!-- Circuit -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
 
-            <TextView
-                android:id="@+id/tvCircuitType"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvCircuitType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <!-- Direction -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
 
-            <TextView
-                android:id="@+id/tvTrackDirection"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvTrackDirection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <!-- Width -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
 
-            <TextView
-                android:id="@+id/tvTrackWidth"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvTrackWidth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <!-- Tyre Wear -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
 
-            <TextView
-                android:id="@+id/tvTyreWear"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvTyreWear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <!-- Weather -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="@drawable/track_edittext_bg">
 
-            <TextView
-                android:id="@+id/tvWeatherConditions"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvWeatherConditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/track_edittext_bg">
+
+                </TextView></LinearLayout>
+
+            <!-- Elevation -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
 
-            <TextView
-                android:id="@+id/tvElevation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+                <TextView
+                    android:id="@+id/tvElevation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/track_edittext_bg"/>
 
-            <TextView
-                android:id="@+id/tvDrivingDifficulty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginBottom="12dp"/>
-        </LinearLayout>
+            <!-- Difficulty -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:background="#1E293B"
+                android:orientation="vertical"
+                android:padding="12dp">
 
-        <!-- زر التذكير -->
-        <Button
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#94A3B8" />
+
+                <TextView
+                    android:id="@+id/tvDrivingDifficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <!-- Location -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:background="#1E293B"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#94A3B8" />
+
+                <TextView
+                    android:id="@+id/tvLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+        </GridLayout>
+
+        <!-- Button -->
+        <EditText
             android:id="@+id/btnR"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:backgroundTint="#132440"
-            android:text="Add Reminder"
-            android:textColor="#FFFFFF" />
+            android:hint="Reminder "
+            android:background="@drawable/track_edittext_bg"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#AAAAAA"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"/>
+
     </LinearLayout>
 </ScrollView>

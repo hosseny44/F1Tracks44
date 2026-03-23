@@ -19,8 +19,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.tracks.DataBase.F1Track;
-import com.example.tracks.DataBase.Team;
+import com.example.tracks.DataBase.Race;
 import com.example.tracks.R;
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +35,7 @@ public class TrackDetailsFragment extends Fragment {
             tvCircuitType, tvTrackDirection, tvTrackWidth, tvWeatherConditions, tvElevation,
             tvDrivingDifficulty, tvLocation;
 
-    private ImageView ivTrackPhoto;
+    private ImageView tvTrackPhoto;
     private F1Track myTrack;
 
     private Button btnReminder;
@@ -64,7 +65,7 @@ public class TrackDetailsFragment extends Fragment {
         tvElevation = getView().findViewById(R.id.tvElevation);
         tvDrivingDifficulty = getView().findViewById(R.id.tvDrivingDifficulty);
         tvLocation = getView().findViewById(R.id.tvLocation);
-        ivTrackPhoto = getView().findViewById(R.id.ivTrackPhoto);
+        tvTrackPhoto = getView().findViewById(R.id.ivTrackPhoto);
         btnReminder = getView().findViewById(R.id.btnR);
         Bundle args = getArguments();
         if (args == null || args.getParcelable("track") == null) {
@@ -84,33 +85,35 @@ public class TrackDetailsFragment extends Fragment {
         tvElevation.setText("Elevation Above The Sea: " + myTrack.getElevation() + " m");
         tvDrivingDifficulty.setText("Driving Difficulty: " + myTrack.getDrivingDifficulty());
         tvLocation.setText("Location: " + myTrack.getLocation1());
-        Picasso.get()
+        tvTrackPhoto = getView().findViewById(R.id.ivTrackPhoto);
+
+        Glide.with(requireContext())
                 .load(myTrack.getImageUrl())
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_foreground)
-                .into(ivTrackPhoto);
+                .into(tvTrackPhoto);
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR}, 100);
         }
         btnReminder.setOnClickListener(v -> addTrackRaceReminder());
     }
-    private ArrayList<Team> getAllRacesForSeason() {
-        ArrayList<Team> races = new ArrayList<>();
-        races.add(new Team("Bahrain GB ", "Bahrain International Circuit", 2026,5,12,18,0));
-        races.add(new Team("Abu Dhabi GP", "Albert Park Grand Prix Circuit", 2026,5,17,17,0));
-        races.add(new Team(" Japan GP ", "Suzuka Circuit", 2026,3,29,14,0));
-        races.add(new Team("Saudi Arabia GP ", "Jeddah Corniche Circuit", 2026,4,19,20,0));
-        races.add(new Team(" United States GP ", "Miami International Autodrome Circuit", 2026,5,3,16,0));
+    private ArrayList<Race> getAllRacesForSeason() {
+        ArrayList<Race> races = new ArrayList<>();
+        races.add(new Race("Bahrain GB ", "Bahrain International Circuit", 2026,5,12,18,0));
+        races.add(new Race("Abu Dhabi GP", "Albert Park Grand Prix Circuit", 2026,5,17,17,0));
+        races.add(new Race(" Japan GP ", "Suzuka Circuit", 2026,3,29,14,0));
+        races.add(new Race("Saudi Arabia GP ", "Jeddah Corniche Circuit", 2026,4,19,20,0));
+        races.add(new Race(" United States GP ", "Miami International Autodrome Circuit", 2026,5,3,16,0));
 
         return races;
     }
 
     private void addTrackRaceReminder() {
-        ArrayList<Team> allRaces = getAllRacesForSeason();
-        Team raceForThisTrack = null;
+        ArrayList<Race> allRaces = getAllRacesForSeason();
+        Race raceForThisTrack = null;
 
-        for(Team r : allRaces){
+        for(Race r : allRaces){
             if(r.trackName.equalsIgnoreCase(myTrack.getTrackName())){
                 raceForThisTrack = r;
                 break;
@@ -151,7 +154,7 @@ public class TrackDetailsFragment extends Fragment {
         }
         return calendarId;
     }
-    private void addRaceReminderToCalendar(Team race) {
+    private void addRaceReminderToCalendar(Race race) {
         long calendarId = getPrimaryCalendarId();
         if(calendarId == -1){
             Toast.makeText(getActivity(), "No calendar found on device!", Toast.LENGTH_SHORT).show();
