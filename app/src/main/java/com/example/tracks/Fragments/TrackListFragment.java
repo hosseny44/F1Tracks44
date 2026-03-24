@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tracks.DataBase.F1Track;
+import com.example.tracks.Classes.F1Track;
 import com.example.tracks.R;
 import com.example.tracks.Utilites.MyAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;

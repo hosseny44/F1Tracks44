@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.tracks.DataBase.F1Track;
+import com.example.tracks.Classes.F1Track;
 import com.example.tracks.Fragments.MainActivity;
 import com.example.tracks.R;
 import com.example.tracks.Fragments.TrackDetailsFragment;

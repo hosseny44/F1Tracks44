@@ -17,8 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.tracks.DataBase.FirebaseServices;
-import com.example.tracks.DataBase.User;
+import com.example.tracks.Classes.FirebaseServices;
+import com.example.tracks.Classes.User;
 import com.example.tracks.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

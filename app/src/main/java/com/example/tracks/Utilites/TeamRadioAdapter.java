@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tracks.DataBase.TeamRadio;
+import com.example.tracks.Classes.TeamRadio;
 import com.example.tracks.R;
 
 import java.util.List;

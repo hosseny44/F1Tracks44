@@ -1,6 +1,7 @@
 package com.example.tracks.Fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -20,10 +21,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.tracks.DataBase.F1Track;
-import com.example.tracks.DataBase.Race;
+import com.example.tracks.Classes.F1Track;
+import com.example.tracks.Classes.Race;
 import com.example.tracks.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,6 +53,7 @@ public class TrackDetailsFragment extends Fragment {
 
     }
 
+    @SuppressLint("WrongViewCast")
     private void init() {
         tvTrackName = getView().findViewById(R.id.tvTrackName);
         tvRaceDistance = getView().findViewById(R.id.tvRaceDistance);
@@ -66,7 +67,8 @@ public class TrackDetailsFragment extends Fragment {
         tvDrivingDifficulty = getView().findViewById(R.id.tvDrivingDifficulty);
         tvLocation = getView().findViewById(R.id.tvLocation);
         tvTrackPhoto = getView().findViewById(R.id.ivTrackPhoto);
-        btnReminder = getView().findViewById(R.id.btnR);
+        btnReminder = getView().findViewById(R.id.btnReminder);
+
         Bundle args = getArguments();
         if (args == null || args.getParcelable("track") == null) {
             Toast.makeText(getActivity(), "Track data not found", Toast.LENGTH_SHORT).show();

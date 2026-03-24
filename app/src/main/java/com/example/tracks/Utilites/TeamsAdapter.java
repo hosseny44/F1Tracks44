@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tracks.DataBase.F1Team;
+import com.example.tracks.Classes.F1Team;
 import com.example.tracks.R;
 
 import java.util.List;

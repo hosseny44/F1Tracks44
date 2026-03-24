@@ -1,4 +1,4 @@
-package com.example.tracks.DataBase;
+package com.example.tracks.Classes;
 
 import android.os.Parcel;
 import android.os.Parcelable;
