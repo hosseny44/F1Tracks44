@@ -4,116 +4,225 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@android:color/transparent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Image -->
         <ImageView
             android:id="@+id/ivTrackPhoto"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:layout_marginBottom="12dp"
-            android:background="#1E293B" />
+         />
 
-        <!-- Track Name -->
         <TextView
             android:id="@+id/tvTrackName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:textColor="#FFFFFF"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Grid -->
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2">
 
-            <!-- Card -->
-            <LinearLayout style="@style/cardItem">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
+
                 <TextView
                     android:id="@+id/tvRaceDistance"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
             </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
+            <!-- Laps -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
+
                 <TextView
                     android:id="@+id/tvNumberOfLaps"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
             </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
+            <!-- First GP -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
+
                 <TextView
                     android:id="@+id/tvFirstGrandPrix"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
             </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
+            <!-- Circuit -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
+
                 <TextView
                     android:id="@+id/tvCircuitType"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
             </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
+            <!-- Direction -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
+
                 <TextView
                     android:id="@+id/tvTrackDirection"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
             </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
+            <!-- Width -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
+
                 <TextView
                     android:id="@+id/tvTrackWidth"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"/>
             </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
-                <TextView
-                    android:id="@+id/tvTyreWear"
-                    style="@style/cardText"/>
-            </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
-                <TextView
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:background="#1E293B">
+
+
+            <TextView
                     android:id="@+id/tvWeatherConditions"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF">
+                </TextView>
             </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:padding="12dp"
+                android:orientation="vertical"
+                android:background="#1E293B">
+
                 <TextView
                     android:id="@+id/tvElevation"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+              />
+
             </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
+            <!-- Difficulty -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:background="#1E293B"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+
+
                 <TextView
                     android:id="@+id/tvDrivingDifficulty"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
-            <LinearLayout style="@style/cardItem">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="6dp"
+                android:background="#1E293B"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:textColor="#94A3B8" />
+
                 <TextView
                     android:id="@+id/tvLocation"
-                    style="@style/cardText"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:text="--" />
             </LinearLayout>
 
         </GridLayout>
 
-        <!-- Button -->
         <Button
-            android:id="@+id/btnReminder"
+            android:id="@+id/btnR"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Add Reminder"
-            android:textColor="#FFFFFF"
-            android:background="#2563EB"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#132440"
+            android:text="Reminder"
+            android:textColor="#000000" />
 
     </LinearLayout>
 </ScrollView>
