@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="cardItem">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_columnWeight">1</item>
-        <item name="android:layout_margin">6dp</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:background">#1E293B</item>
+    <style name="RoundedImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
     </style>
 
-    <style name="cardText">
-        <item name="android:layout_width">wrap_content</item>
+    <style name="InfoCard">
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardBackgroundColor">#1E293B</item>
+        <item name="cardElevation">6dp</item>
+    </style>
+
+    <style name="InfoText">
         <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">12dp</item>
     </style>
 
 </resources>

@@ -67,7 +67,7 @@ public class TrackDetailsFragment extends Fragment {
         tvDrivingDifficulty = getView().findViewById(R.id.tvDrivingDifficulty);
         tvLocation = getView().findViewById(R.id.tvLocation);
         tvTrackPhoto = getView().findViewById(R.id.ivTrackPhoto);
-        btnReminder = getView().findViewById(R.id.btnReminder);
+        btnReminder = getView().findViewById(R.id.btnR);
 
         Bundle args = getArguments();
         if (args == null || args.getParcelable("track") == null) {

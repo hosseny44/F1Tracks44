@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tracks.Classes.F1RetrofitClient;
 import com.example.tracks.R;
 import com.example.tracks.Classes.SeasonsResponse;
-import com.example.tracks.Utilites.SeasonsAdapter;
+import com.example.tracks.Adapters.SeasonsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

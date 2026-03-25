@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tracks.Classes.RetrofitClient;
 import com.example.tracks.Classes.TeamRadio;
 import com.example.tracks.R;
-import com.example.tracks.Utilites.TeamRadioAdapter;
+import com.example.tracks.Adapters.TeamRadioAdapter;
 
 import java.util.List;
 

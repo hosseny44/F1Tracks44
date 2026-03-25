@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 import com.example.tracks.Classes.FirebaseServices;
 import com.example.tracks.R;
 import com.example.tracks.Classes.User;
-import com.example.tracks.Utilites.Utils;
+import com.example.tracks.Adapters.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.StorageReference;
 

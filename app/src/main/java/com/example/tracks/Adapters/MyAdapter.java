@@ -1,4 +1,4 @@
-package com.example.tracks.Utilites;
+package com.example.tracks.Adapters;
 
 import android.content.Context;
 import android.os.Bundle;
