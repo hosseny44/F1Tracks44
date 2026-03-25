@@ -235,11 +235,11 @@
         </GridLayout>
 
         <!-- Button -->
-        <EditText
+        <Button
             android:id="@+id/btnR"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Reminder "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Reminder"
             android:background="@drawable/track_edittext_bg"
             android:textColor="#FFFFFF"
             android:textColorHint="#AAAAAA"
