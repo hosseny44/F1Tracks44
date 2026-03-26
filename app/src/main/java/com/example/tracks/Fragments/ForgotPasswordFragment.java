@@ -3,6 +3,8 @@ package com.example.tracks.Fragments;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ForgotPasswordFragment extends Fragment {
 
     private EditText etEmailForgot;
-    private Button btnResetForgot;
+    private Button btnResetForgot , btngohome;
     private FirebaseAuth auth;
 
     public ForgotPasswordFragment() {}
@@ -33,6 +35,8 @@ public class ForgotPasswordFragment extends Fragment {
 
         etEmailForgot = view.findViewById(R.id.etEmailForfgotpassword);
         btnResetForgot = view.findViewById(R.id.btnResetForgotPassword);
+        btngohome = view.findViewById(R.id.btngohome);
+
         auth = FirebaseAuth.getInstance();
 
         btnResetForgot.setOnClickListener(v -> {
@@ -51,5 +55,14 @@ public class ForgotPasswordFragment extends Fragment {
                 }
             });
         });
+        btngohome.setOnClickListener(v -> {gotoLoginFragment();});
+
     }
+    private void gotoLoginFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameLayout, new LoginFragment());
+        ft.commit();
+    }
+
 }
