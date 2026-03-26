@@ -15,7 +15,6 @@ public class F1Track implements Parcelable {
     private String numberOfLaps;
     private String firstGrandPrix;
     private String imageUrl;
-    private boolean isFavorite = false;
 
     private String circuitType;
     private String trackDirection;
@@ -51,7 +50,6 @@ public class F1Track implements Parcelable {
         this.EXP = EXP;
         this.imgCountry = imgCountry;
         this.id = id;
-        this.isFavorite = false;
     }
 
     protected F1Track(Parcel in) {
@@ -71,7 +69,6 @@ public class F1Track implements Parcelable {
         EXP = in.readString();
         imgCountry = in.readString();
         id = in.readString();
-        isFavorite = in.readByte() != 0;
     }
 
     @Override
@@ -92,7 +89,6 @@ public class F1Track implements Parcelable {
         dest.writeString(EXP);
         dest.writeString(imgCountry);
         dest.writeString(id);
-        dest.writeByte((byte) (isFavorite ? 1 : 0));
     }
 
     @Override
@@ -105,8 +101,6 @@ public class F1Track implements Parcelable {
         public F1Track[] newArray(int size) { return new F1Track[size]; }
     };
 
-    public boolean isFavorite() { return isFavorite; }
-    public void setFavorite(boolean favorite) { this.isFavorite = favorite; }
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     public String getImgCountry() { return imgCountry; }

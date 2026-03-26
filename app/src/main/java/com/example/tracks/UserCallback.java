@@ -1,4 +1,4 @@
-package com.example.tracks.Adapters;
+package com.example.tracks;
 
 import com.example.tracks.Classes.User;
 

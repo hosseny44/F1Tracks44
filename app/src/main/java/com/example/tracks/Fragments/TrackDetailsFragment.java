@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,6 @@ public class TrackDetailsFragment extends Fragment {
 
     }
 
-    @SuppressLint("WrongViewCast")
     private void init() {
         tvTrackName = getView().findViewById(R.id.tvTrackName);
         tvRaceDistance = getView().findViewById(R.id.tvRaceDistance);
@@ -88,7 +88,6 @@ public class TrackDetailsFragment extends Fragment {
         tvDrivingDifficulty.setText("Driving Difficulty: " + myTrack.getDrivingDifficulty());
         tvLocation.setText("Location: " + myTrack.getLocation1());
         tvTrackPhoto = getView().findViewById(R.id.ivTrackPhoto);
-
         Glide.with(requireContext())
                 .load(myTrack.getImageUrl())
                 .placeholder(R.drawable.ic_launcher_foreground)

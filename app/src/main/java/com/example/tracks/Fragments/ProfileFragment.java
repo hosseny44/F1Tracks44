@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
 
-import com.example.tracks.Classes.FirebaseServices;
+import com.example.tracks.FirebaseServices;
 import com.example.tracks.R;
 import com.squareup.picasso.Picasso;
 

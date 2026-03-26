@@ -1,8 +1,9 @@
-package com.example.tracks.Classes;
+package com.example.tracks;
 
 import android.content.Context;
 import android.net.Uri;
 
+import com.example.tracks.Classes.User;
 import com.example.tracks.Fragments.LoginFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;

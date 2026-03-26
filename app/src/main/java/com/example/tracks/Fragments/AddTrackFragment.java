@@ -201,7 +201,7 @@ public class AddTrackFragment extends Fragment {
                 )
                 .addOnFailureListener(e -> {
                     btnAddTrack.setEnabled(true);
-                    Toast.makeText(getActivity(), "Image upload failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                 });
     }
 

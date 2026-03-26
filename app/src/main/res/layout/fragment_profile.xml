@@ -9,9 +9,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 
-        <!-- Profile Image -->
         <ImageView
             android:id="@+id/Profile"
             android:layout_width="140dp"
@@ -49,12 +48,11 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="15dp"
-            android:text="📞 Support"
+            android:text=" Send SMS"
             android:textStyle="bold"
-            android:textColor="#000000"
-            android:background="@drawable/btn_race_red2" />
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_race_dark" />
 
-        <!-- Settings Button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btsSet"
             android:layout_width="match_parent"

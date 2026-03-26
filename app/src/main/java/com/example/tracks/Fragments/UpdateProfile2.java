@@ -18,10 +18,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.tracks.Classes.FirebaseServices;
+import com.example.tracks.FirebaseServices;
 import com.example.tracks.R;
 import com.example.tracks.Classes.User;
-import com.example.tracks.Adapters.Utils;
+import com.example.tracks.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.StorageReference;
 

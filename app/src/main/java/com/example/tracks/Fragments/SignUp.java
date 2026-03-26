@@ -18,7 +18,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.tracks.Classes.FirebaseServices;
+import com.example.tracks.FirebaseServices;
 import com.example.tracks.R;
 import com.example.tracks.Classes.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
