@@ -2,6 +2,7 @@ package com.example.tracks.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.tracks.FirebaseServices;
 import com.example.tracks.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
 
@@ -96,4 +99,5 @@ public class LoginFragment extends Fragment {
         ft.replace(R.id.frameLayout, new ForgotPasswordFragment());
         ft.commit();
     }
+
 }
