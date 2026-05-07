@@ -235,7 +235,6 @@
             android:scaleType="centerCrop"
             android:background="#333333"/>
 
-        <!-- زر الإضافة -->
         <Button
             android:id="@+id/btnAddTrack"
             android:layout_width="match_parent"
@@ -246,7 +245,6 @@
             android:backgroundTint="#FFEB3B"
             android:layout_marginTop="24dp"/>
 
-        <!-- صورة الدولة -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

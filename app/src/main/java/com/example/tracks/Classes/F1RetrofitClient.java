@@ -21,7 +21,8 @@ public class F1RetrofitClient {
     }
 
     public static OpenF1Service getApiService() {
-        return getClient().create(OpenF1Service.class);
+        return getClient().
+                create(OpenF1Service.class);
     }
 
     public static Call<TeamsResponse> getTeams() {

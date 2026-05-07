@@ -30,7 +30,6 @@ public class SMSFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_s_m_s, container, false);
 
-        // ربط العناصر
         etPhoneNumberMain = view.findViewById(R.id.etPhoneNumberMain);
         etMsgBosyMain = view.findViewById(R.id.etMsgBosyMain);
         btnSendSMSMain = view.findViewById(R.id.btnSendSMSMain);

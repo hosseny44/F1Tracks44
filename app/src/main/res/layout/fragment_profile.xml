@@ -20,7 +20,6 @@
             android:scaleType="centerCrop"
             android:background="@drawable/profile_circle_border" />
 
-        <!-- Name -->
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
@@ -31,7 +30,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Email -->
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
@@ -40,9 +38,7 @@
             android:textColor="#BBBBBB"
             android:textSize="16sp" />
 
-        <!-- Favorite Button -->
 
-        <!-- Call Button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSMS"
             android:layout_width="match_parent"

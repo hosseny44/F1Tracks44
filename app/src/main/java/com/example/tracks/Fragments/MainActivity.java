@@ -84,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             bottomNavigationView.setVisibility(View.VISIBLE);
 
-            // جلب بيانات المستخدم وضبط زر Add للأدمن فقط
-            fbs.getCurrentObjectUser(user -> setNavigationBarVisible());
-
             pushFragment(new TrackListMap());
         }
     }
@@ -173,15 +170,5 @@ public class MainActivity extends AppCompatActivity {
         return currentUser[0];
     }
 
-    private void setNavigationBarVisible() {
-        bottomNavigationView.setVisibility(View.VISIBLE);
-        Menu menu = bottomNavigationView.getMenu();
-        FirebaseUser currentUser = fbs.getAuth().getCurrentUser();
 
-        if (currentUser == null || !currentUser.getEmail().equals("Ameerr@gmail.com")) {
-            menu.findItem(R.id.action_add).setVisible(false);
-        } else {
-            menu.findItem(R.id.action_add).setVisible(true);
-        }
-    }
 }

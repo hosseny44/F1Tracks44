@@ -12,7 +12,6 @@
         android:padding="24dp"
         android:gravity="center_horizontal">
 
-        <!-- العنوان -->
         <TextView
             android:id="@+id/tvSmsTitle"
             android:layout_width="wrap_content"
@@ -27,7 +26,6 @@
             android:shadowDy="2"
             android:shadowRadius="4"/>
 
-        <!-- رقم الهاتف -->
         <EditText
             android:id="@+id/etPhoneNumberMain"
             android:layout_width="match_parent"
