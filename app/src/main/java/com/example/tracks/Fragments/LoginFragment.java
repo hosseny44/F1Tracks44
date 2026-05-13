@@ -2,7 +2,6 @@ package com.example.tracks.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,8 +15,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.tracks.FirebaseServices;
 import com.example.tracks.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
 
@@ -50,54 +47,41 @@ public class LoginFragment extends Fragment {
         tvForgotpassword.setOnClickListener(v -> gotoForgotPasswordFragment());
 
         btnLogin.setOnClickListener(v -> {
-
             String username = etUsername.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
 
             if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireActivity(),
-                        "Some fields are empty!",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             fbs.getAuth().signInWithEmailAndPassword(username, password)
                     .addOnCompleteListener(requireActivity(), task -> {
-
                         if (task.isSuccessful()) {
+                            Toast.makeText(requireActivity(), "Logged in successfully!", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(requireActivity(),
-                                    "You have successfully logged in!",
-                                    Toast.LENGTH_SHORT).show();
-
-                            MainActivity activity = (MainActivity) requireActivity();
-                            activity.getBottomNavigationView().setVisibility(View.VISIBLE);
-                            activity.pushFragment(new TrackListFragment());
-
+                            MainActivity activity = (MainActivity) getActivity();
+                            if (activity != null) {
+                                // لفحص الأدمين
+                                activity.updateBottomNavVisibility();
+                                activity.pushFragment(new TrackListMap());
+                            }
                         } else {
-
-                            Toast.makeText(requireActivity(),
-                                    "Failed to login! Check user or password!",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireActivity(), "Login failed!", Toast.LENGTH_SHORT).show();
                         }
                     });
         });
     }
 
     private void gotoSignupFragment() {
-        FragmentTransaction ft = requireActivity()
-                .getSupportFragmentManager()
-                .beginTransaction();
+        FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout, new SignUp());
         ft.commit();
     }
 
     private void gotoForgotPasswordFragment() {
-        FragmentTransaction ft = requireActivity()
-                .getSupportFragmentManager()
-                .beginTransaction();
+        FragmentTransaction ft = requireActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout, new ForgotPasswordFragment());
         ft.commit();
     }
-
 }
